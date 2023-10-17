@@ -4,6 +4,7 @@ CREATE DATABASE mini_story;
 
 USE mini_story;
 
+
 CREATE TABLE `user` (
                         `user_id`	BIGINT(32)	NOT NULL,
                         `nickname`	VARCHAR(10)	NOT NULL,
@@ -56,17 +57,17 @@ CREATE TABLE `scrap` (
                          `post_id`	BIGINT(32)	NOT NULL
 );
 
-CREATE TABLE `notification` (
-                                `notify_id`	BIGINT(32)	NOT NULL,
-                                `user_id`	BIGINT(32)	NOT NULL,
-                                `parent_id`	BIGINT(32)	NULL,
-                                `notify_type`	VARCHAR(20)	NULL,
-                                `notify_title`	VARCHAR(20)	NOT NULL,
-                                `notify_content`	TEXT(200)	NULL,
-                                `created_at`	TIMESTAMP(6)	NULL,
-                                `notify_url`	VARCHAR(40)	NOT NULL,
-                                `is_checked`	TINYINT(2)	NOT NULL,
-                                `checked_at`	TIMESTAMP(6)	NULL
+CREATE TABLE `notify` (
+                          `notify_id`	BIGINT(32)	NOT NULL,
+                          `user_id`	BIGINT(32)	NOT NULL,
+                          `parent_id`	BIGINT(32)	NULL,
+                          `notify_type`	VARCHAR(20)	NULL,
+                          `notify_title`	VARCHAR(20)	NOT NULL,
+                          `notify_content`	TEXT(200)	NULL,
+                          `created_at`	TIMESTAMP(6)	NULL,
+                          `notify_url`	VARCHAR(40)	NOT NULL,
+                          `is_checked`	TINYINT(2)	NOT NULL,
+                          `checked_at`	TIMESTAMP(6)	NULL
 );
 
 ALTER TABLE `user` ADD CONSTRAINT `PK_USER` PRIMARY KEY (
@@ -93,9 +94,7 @@ ALTER TABLE `scrap` ADD CONSTRAINT `PK_SCRAP` PRIMARY KEY (
                                                            `scrap_id`
     );
 
-ALTER TABLE `notification` ADD CONSTRAINT `PK_NOTIFICATION` PRIMARY KEY (
-                                                                         `notify_id`
+ALTER TABLE `notify` ADD CONSTRAINT `PK_NOTIFY` PRIMARY KEY (
+                                                             `notify_id`
     );
-
-
 
