@@ -1,5 +1,6 @@
 package com.example.ministory.controller;
 
+import com.example.ministory.dto.DeleteManyScrapDto;
 import com.example.ministory.dto.ScrapDto;
 import com.example.ministory.dto.ScrapPostDto;
 import com.example.ministory.dto.UserIdDto;
@@ -38,10 +39,10 @@ public class ScrapController {
 			return scrapService.getAllScrap(request);
 		}
 
-	//	// 스크랩 여러개 선택해서 한번에 삭제하는 API
-	//	@PostMapping("/all/delete")
-	//	public void deleteManyLikes(@RequestBody @Valid DeleteManyLikesDto request) {
-	//		scrapService.deleteManyLikes(request);
-	//	}
+		// 스크랩 여러개 선택해서 한번에 삭제하는 API
+		@PostMapping("/all/delete")
+		public void deleteManyScrap(@RequestBody @Valid DeleteManyScrapDto request) {
+			scrapService.deleteManyScrap(request);
+		}
 
 }

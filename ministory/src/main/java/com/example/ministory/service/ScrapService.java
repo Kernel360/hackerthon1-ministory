@@ -1,6 +1,7 @@
 package com.example.ministory.service;
 
 import com.example.ministory.dto.DeleteManyLikesDto;
+import com.example.ministory.dto.DeleteManyScrapDto;
 import com.example.ministory.dto.LikePostDto;
 import com.example.ministory.dto.LikesDto;
 import com.example.ministory.dto.ScrapDto;
@@ -70,15 +71,15 @@ public class ScrapService {
 		return list;
 	}
 
-//	@Transactional
-//	public void deleteManyLikes(DeleteManyLikesDto request) {
-//		User user = userRepository.findById(request.getUserId()).orElseThrow(() -> new IllegalArgumentException("해당 유저가 없습니다."));
-//		List<Long> postIdList = request.getPostIdList();
-//		for (Long postId : postIdList) {
-//			Post post = postRepository.findById(postId).orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다."));
-//			post.setLikeCount(post.getLikeCount() - 1);
-//			Scrap likes = likeRepository.findByUserAndPost(user, post).orElseThrow(() -> new IllegalArgumentException("해당 좋아요가 없습니다."));
-//			likeRepository.delete(likes);
-//		}
-//	}
+	@Transactional
+	public void deleteManyScrap(DeleteManyScrapDto request) {
+		User user = userRepository.findById(request.getUserId()).orElseThrow(() -> new IllegalArgumentException("해당 유저가 없습니다."));
+		List<Long> postIdList = request.getPostIdList();
+		for (Long postId : postIdList) {
+			Post post = postRepository.findById(postId).orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다."));
+			post.setLikeCount(post.getLikeCount() - 1);
+			Scrap scrap = scrapRepository.findByUserAndPost(user, post).orElseThrow(() -> new IllegalArgumentException("해당 좋아요가 없습니다."));
+			scrapRepository.delete(scrap);
+		}
+	}
 }
