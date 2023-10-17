@@ -37,4 +37,13 @@ public class CommentService {
 
 		commentRepository.save(comment);
 	}
+
+	public void updateComment(Long commentId, String content) {
+		Comment comment = commentRepository.findById(commentId).orElseThrow(() -> new RuntimeException());
+		comment.setContent(content);
+	}
+
+	public void deleteComment(Long commentId) {
+		commentRepository.deleteById(commentId);
+	}
 }
