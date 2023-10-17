@@ -18,6 +18,7 @@
   - Spring Boot
   - Spring Data JPA
 
+
 - DB
   - MySQL
 
@@ -58,3 +59,5 @@ http://localhost:8080/swagger-ui/index.html
 - 회원가입
 - 테스트
 
+![스크린샷 2023-10-17 오후 5 05 39](https://github.com/Kernel360/hackerthon1-ministory/assets/101683784/da11b932-6d38-41f1-9e0d-dca3b3253088)
+![스크린샷 2023-10-17 오후 5 05 28](https://github.com/Kernel360/hackerthon1-ministory/assets/101683784/480d8410-fb11-43ea-b4f3-30bca5bd4ecb)
