@@ -1,16 +1,24 @@
 package com.example.ministory.entity;
 
-import com.fasterxml.jackson.databind.PropertyNamingStrategies;
-import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
-import java.util.Date;
 
 @Data
 @NoArgsConstructor
@@ -26,7 +34,7 @@ public class User {
 
     private String nickname;
 
-    private Date birthday;
+    private Timestamp birthday;
 
     @Column(columnDefinition = "TEXT")
     private String imagePath;

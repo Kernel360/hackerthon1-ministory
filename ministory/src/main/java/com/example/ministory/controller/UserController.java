@@ -1,5 +1,12 @@
 package com.example.ministory.controller;
 
+import java.util.List;
+
+import javax.validation.Valid;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+
 import com.example.ministory.entity.User;
 import com.example.ministory.repository.UserRepository;
 import com.example.ministory.dto.UserEntityDto;
@@ -10,31 +17,36 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.validation.Valid;
-import java.util.List;
+import com.example.ministory.dto.UserDto;
+import com.example.ministory.entity.User;
+import com.example.ministory.service.UserService;
 
-@RequiredArgsConstructor
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 @Controller
-@RequestMapping("/api/user")
-public class UserApiController {
-
-    private final UserRepository userRepository;
-
-    @GetMapping("/find-all")
-    public List<User> findAll() {
-        return userRepository.findAll();
-    }
+@RequestMapping("/user")
+public class UserController {
+    private UserService userService;
 
     @GetMapping("/signup")
-    public String getSignUp(UserEntityDto userEntityDto) {
+    public String getSignUp(UserDto userDto) {
         return "userCreateForm";
     }
 
     @PostMapping("/signup")
-    public String postSignUp(@Valid UserEntityDto userEntityDto, BindingResult bindingResult) {
+    public String postSignUp(@Valid UserDto userDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "userCreateForm";
         }
+        userService.saveUser(userDto);
         return "redirect:/";
+    }
+
+    @GetMapping("/list")
+    public String getUserList(Model model) {
+        List<User> users = userService.findUsers();
+        model.addAttribute("users", users);
+        return "userlist";
     }
 }
