@@ -4,7 +4,7 @@
       layout:decorate="~{layout/defaultLayout}">
     <div layout:fragment="content" class="container my-3 border-bottom">
         <h1>새로운 글 작성하기</h1>
-        <form th:action="@{/post/writeRequest}" method="post">
+        <div>
             <div class="mb-3">
                 <label for="title" class="form-label">제목</label>
                 <input id="title" name="title" class="form-control">
@@ -24,20 +24,19 @@
             </div>
             <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
             <script th:src="@{/editormd/editormd.min.js}"></script>
+            <button id="submit_btn" class="btn btn-primary">작성하기</button>
             <script type="text/javascript">
-                $(function() {
-                    var editor = editormd("test-editor", {
-                        width : "100%",
-                        height : "800px",
-                        path : "../editormd/lib/"
-                    });
+
+                var editor = editormd("test-editor", {
+                    width : "100%",
+                    height : "800px",
+                    path : "../editormd/lib/",
+                    saveHTMLToTextarea: true
                 });
 
                 const sendBtn = document.getElementById("submit_btn");
 
-                sendBtn.addEventListener("click", sendPostRequest());
-
-                function sendPostRequest() {
+                sendBtn.addEventListener("click", function(event) {
                     const title = document.querySelector("#title").value;
                     const category_id = document.querySelector("#category").value;
                     const content_md = editor.getMarkdown();
@@ -48,9 +47,21 @@
                         "content_html": content_html,
                         "category_id": category_id
                     }
-                }
+                    alert(inputData.content_html);
+
+                    $.ajax({
+                        url: "/post/write",
+                        type: "post",
+                        data: JSON.stringify(inputData),
+                        dataType: "json",
+                        contentType:"application/json;charset=UTF-8",
+                        async: false,
+                        success: function(data) {
+                            alert(data.message);
+                        }
+                    })
+                });
             </script>
-            <button id="submit_btn" class="btn btn-primary">작성하기</button>
-        </form>
+        </div>
     </div>
 </html>
