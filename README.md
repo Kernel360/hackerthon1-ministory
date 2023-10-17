@@ -25,6 +25,8 @@
 [ERD](https://www.erdcloud.com/d/smw4qbjMBv8rBbif6)
 <img width="1060" alt="image" src="https://github.com/Kernel360/hackerthon1-ministory/assets/68376744/29b3a122-7819-4e05-880d-6d710313c3c4">
 
+### 기능 명세서
+[ministory 기능 명세서](https://www.notion.so/cc3b387411d14249af695e9073b93be7?pvs=4)
 
 ### 화면 설계
 [피그마](https://www.figma.com/file/EbqWx8qFW1O9U5jDJUwkfQ/ministory?type=design&node-id=0-1&mode=design&t=Bbw5lxTm8rB38Uh6-0)
