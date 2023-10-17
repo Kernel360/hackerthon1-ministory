@@ -32,6 +32,9 @@ dependencies {
     implementation 'com.mysql:mysql-connector-j:8.1.0'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
+
+    implementation 'org.springdoc:springdoc-openapi-ui:1.7.0'
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
