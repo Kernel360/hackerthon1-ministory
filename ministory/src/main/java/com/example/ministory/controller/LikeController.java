@@ -1,5 +1,6 @@
 package com.example.ministory.controller;
 
+import com.example.ministory.dto.DeleteManyLikesDto;
 import com.example.ministory.dto.LikePostDto;
 import com.example.ministory.dto.LikesDto;
 import com.example.ministory.dto.UserIdDto;
@@ -44,5 +45,9 @@ public class LikeController {
 	}
 
 	// 좋아요 여러개 선택해서 한번에 삭제하는 API
+	@PostMapping("/all/delete")
+	public void deleteManyLikes(@RequestBody @Valid DeleteManyLikesDto request) {
+		likeService.deleteManyLikes(request);
+	}
 
 }
