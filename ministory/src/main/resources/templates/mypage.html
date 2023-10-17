@@ -3,3 +3,6 @@
       xmlns:th="http://www.thymeleaf.org"
       layout:decorate="~{layout/defaultLayout}">
 <div layout:fragment="content" class="container my-3 border-bottom">
+    <form th:action="@{/api/user/signup}" th:object="${userEntityDto}" method="post">
+    </form>
+</div>
