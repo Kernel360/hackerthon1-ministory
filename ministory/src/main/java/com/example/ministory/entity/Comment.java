@@ -16,6 +16,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import lombok.Builder;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @NoArgsConstructor
 @Entity
@@ -35,6 +36,7 @@ public class Comment {
 	private Post post;
 
 	@Column(columnDefinition = "TEXT")
+	@Setter
 	private String content;
 
 	@CreationTimestamp
