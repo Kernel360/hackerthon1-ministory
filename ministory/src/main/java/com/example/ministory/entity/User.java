@@ -73,4 +73,11 @@ public class User {
                 .post(Post.builder().postId(postId).build())
                 .build());
     }
+
+    public void addScrap(Long userId, Long postId) {
+        scrapList.add(Scrap.builder()
+                .user(User.builder().userId(userId).build())
+                .post(Post.builder().postId(postId).build())
+                .build());
+    }
 }

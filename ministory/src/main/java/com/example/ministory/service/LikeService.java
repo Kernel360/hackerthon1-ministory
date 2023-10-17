@@ -28,8 +28,8 @@ public class LikeService {
  	@Transactional
 	public void pushLikes(LikesDto request) {
 		User user = userRepository.findById(request.getUserId()).orElseThrow(() -> new IllegalArgumentException("해당 유저가 없습니다."));
-		user.addLikes(request.getUserId(), request.getPostId());
 		Post post = postRepository.findById(request.getPostId()).orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다."));
+		user.addLikes(request.getUserId(), request.getPostId());
 
 		// TODO: 이런 로직 어디에 넣어야 할지 고민해보기 1. setter를 사용하여 서비스에서 구현한다. 2. 엔티티에서 구현한다.
 		post.setLikeCount(post.getLikeCount() + 1);
