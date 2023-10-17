@@ -3,14 +3,17 @@ package com.example.ministory.controller;
 import com.example.ministory.entity.User;
 import com.example.ministory.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RequiredArgsConstructor
-@RestController
+@Controller
 @RequestMapping("/api/user")
 public class UserApiController {
 
@@ -19,5 +22,18 @@ public class UserApiController {
     @GetMapping("/find-all")
     public List<User> findAll() {
         return userRepository.findAll();
+    }
+
+    @GetMapping("/signup")
+    public String getSignUp(UserEntityDto userEntityDto) {
+        return "userCreateForm";
+    }
+
+    @PostMapping("/signup")
+    public String postSignUp(@Valid UserEntityDto userEntityDto, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "userCreateForm";
+        }
+        return "redirect:/";
     }
 }

@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{layout}">
+<div layout:fragment="content" class="container my-3 border-bottom">
+  <div>
+    <h4>회원가입</h4>
+  </div>
+<div/>
+  <form th:action="@{/api/user/signup}" th:object="${userEntityDto}" method="post">
+    <div class="alert alert-danger" role="alert" th:if="${#fields.hasAnyErrors()}">
+      <div th:each="err : ${#fields.allErrors()}" th:text="${err}" />
+    </div>
+    <div class="mb-3">
+      <label for="email" class="form-label">이메일</label>
+      <input type="email" id="email" name="email"
+             class="form-control" placeholder="이메일을 입력하세요">
+    </div>
+    <div class="mb-3">
+      <label for="password" class="form-label">비밀번호</label>
+      <input type="password" id="password" name="password"
+             class="form-control" placeholder="비밀번호를 입력하세요">
+    </div>
+    <div class="mb-3">
+      <label for="password_confirm" class="form-label">비밀번호 확인</label>
+      <input type="password" id="password_confirm" name="password_confirm"
+             class="form-control" placeholder="비밀번호 확인">
+    </div>
+    <div class="mb-3">
+      <label for="nickname" class="form-label">별명</label>
+      <input type="text" id="nickname" name="nickname"
+             class="form-control" placeholder="별명을 입력하세요">
+    <div/>
+      <br>
+    <div class="mb-3">
+      <label for="birthday" class="form-label">생년월일</label>
+      <input type="date" id="birthday" name="birthday"
+             class="form-control">
+    </div>
+      <br>
+    <div class="mb-3">
+      <label for="address" class="form-label">블로그 주소</label>
+      <input type="text" id="address" name="address"
+             class="form-control" placeholder="블로그 주소를 입력하세요">
+    <div/>
+     <br>
+    <button type="submit" class="btn btn-primary">가입하기</button>
+  </form>
+</div> <!-- /container -->
+</html>
