@@ -12,6 +12,7 @@
             <div class="mb-3">
                 <label for="category" class="form-label">카테고리</label>
                 <select id="category" name="category" class="form-control">
+                    <option th:each="category : ${categories}" th:value="${category.categoryId}" th:text="${category.title}"></option>
                 </select>
             </div>
             <link rel="stylesheet" th:href="@{/editormd/css/editormd.css}"/>
@@ -31,8 +32,25 @@
                         path : "../editormd/lib/"
                     });
                 });
+
+                const sendBtn = document.getElementById("submit_btn");
+
+                sendBtn.addEventListener("click", sendPostRequest());
+
+                function sendPostRequest() {
+                    const title = document.querySelector("#title").value;
+                    const category_id = document.querySelector("#category").value;
+                    const content_md = editor.getMarkdown();
+                    const content_html = editor.getHTML();
+                    const inputData = {
+                        "title": title,
+                        "content_md": content_md,
+                        "content_html": content_html,
+                        "category_id": category_id
+                    }
+                }
             </script>
-            <button type="submit" class="btn btn-primary">작성하기</button>
+            <button id="submit_btn" class="btn btn-primary">작성하기</button>
         </form>
     </div>
 </html>
