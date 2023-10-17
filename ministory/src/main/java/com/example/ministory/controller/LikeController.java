@@ -28,11 +28,11 @@ public class LikeController {
 		likeService.pushLikes(request);
 	}
 
-//	@Operation(summary = "좋아요 취소")
-//	@PostMapping("/cancel")
-//	public void deleteLikes(@RequestBody @Valid LikesDto request) {
-//		likeService.deleteLikes(request);
-//	}
+	@Operation(summary = "좋아요 취소")
+	@PostMapping("/cancel")
+	public void deleteLikes(@RequestBody @Valid LikesDto request) {
+		likeService.deleteLikes(request);
+	}
 
 	// 좋아요 모두 모아보는 API
 
