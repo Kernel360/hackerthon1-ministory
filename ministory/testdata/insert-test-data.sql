@@ -1,12 +1,13 @@
 
+
 INSERT INTO user
-VALUES (1, 'asd', '1999-03-03', 'imgeimgeimgeimgeimgei',  'shsh@shshsh.com', '0000', 0, 'seoul');
+VALUES (1, 'asd', '1999-03-03', 'imgeimgeimimgei',  'shsh@shshsh.com', '0000', 0, 'seoul');
 INSERT INTO user
-VALUES (2, '222', '1900-03-03', 'hihihihimgeimgei',  '222@shshsh.com', '1111', 0, 'seoul');
+VALUES (2, '222', '1990-03-03', 'hihihihimgeimgei',  '222@shshsh.com', '1111', 0, 'seoul');
 INSERT INTO user
-VALUES (3, '333', '1900-03-03', 'hihihihimgeimgei',  '333@shshsh.com', '1111', 0, 'seoul');
+VALUES (3, '333', '2000-03-03', 'hihihihimgeimgei',  '333@shshsh.com', '1111', 0, 'seoul');
 INSERT INTO user
-VALUES (4, '444', '1900-03-03', 'hihihihimgeimgei',  '444@shshsh.com', '1111', 0, 'seoul');
+VALUES (4, '444', '2003-03-03', 'hihihihimgeimgei',  '444@shshsh.com', '1111', 0, 'seoul');
 
 # category
 INSERT INTO category
@@ -70,5 +71,5 @@ VALUES (2, 2, 1, '예예.', '2023-04-09 12:00:00', '2023-04-10 00:00:00', 1);
 INSERT INTO comment
 VALUES (3, 4, 4, '너무 재미있어요.', '2023-04-09 00:00:00', '2023-04-10 00:00:00', 3);
 INSERT INTO comment
-VALUES (3, 2, 4, '감사합니다..', '2023-04-09 00:00:00', '2023-04-10 00:00:00', 3);
+VALUES (4, 2, 4, '감사합니다..', '2023-04-09 00:00:00', '2023-04-10 00:00:00', 3);
 
