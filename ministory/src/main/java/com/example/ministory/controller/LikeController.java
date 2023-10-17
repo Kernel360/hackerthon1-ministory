@@ -1,10 +1,13 @@
 package com.example.ministory.controller;
 
+import com.example.ministory.dto.LikePostDto;
 import com.example.ministory.dto.LikesDto;
+import com.example.ministory.dto.UserIdDto;
 import com.example.ministory.service.LikeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +38,10 @@ public class LikeController {
 	}
 
 	// 좋아요 모두 모아보는 API
+	@PostMapping("/all")
+	public List<LikePostDto> getAllLikes(@RequestBody @Valid UserIdDto request) {
+		return likeService.getAllLikes(request);
+	}
 
 	// 좋아요 여러개 선택해서 한번에 삭제하는 API
 
