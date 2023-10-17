@@ -1,10 +1,18 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<head th:replace="fragments/config :: ConfigFragment">
-  <title layout:title-pattern="$LAYOUT_TITLE : $CONTENT_TITLE">공동 타이틀</title>
+<!doctype html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+  <title>ministory layout</title>
 </head>
 <body>
-  <header th:replace="fragments/header :: HeaderFragment"></header>
-  <th:block layout:fragment="Content"></th:block>
+<nav th:replace="~{fragments/navbar :: navbarFragment}"></nav>
+<th:block layout:fragment="content"></th:block>
+<script th:src="@{/bootstrap.min.js}"></script>
+<th:block layout:fragment="script"></th:block>
 </body>
 </html>
