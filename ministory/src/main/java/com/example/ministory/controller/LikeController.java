@@ -1,7 +1,6 @@
 package com.example.ministory.controller;
 
-import com.example.ministory.dto.deleteLikesDto;
-import com.example.ministory.dto.pushLikesDto;
+import com.example.ministory.dto.LikesDto;
 import com.example.ministory.service.LikeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -24,14 +23,18 @@ public class LikeController {
 
 	@Operation(summary = "좋아요 누르기")
 	@PostMapping("/push")
-	public void pushLikesButton(@RequestBody @Valid pushLikesDto request) {
-		likeService.pushLikesButton(request);
+	public void pushLikes(@RequestBody @Valid LikesDto request) {
+		likeService.pushLikes(request);
 	}
 
 	@Operation(summary = "좋아요 취소")
 	@PostMapping("/cancel")
-	public void deleteLikesButton(@RequestBody @Valid deleteLikesDto request) {
-		likeService.deleteLikesButton();
+	public void deleteLikes(@RequestBody @Valid LikesDto request) {
+		likeService.deleteLikes(request);
 	}
+
+	// 좋아요 모두 모아보는 API
+
+	// 좋아요 여러개 선택해서 한번에 삭제하는 API
 
 }

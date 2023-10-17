@@ -5,7 +5,7 @@ import javax.validation.constraints.NotNull;
 import lombok.Getter;
 
 @Getter
-public class pushLikesDto {
+public class LikesDto {
 
 	@Schema(example = "2")
 	@NotNull(message = "유저 Id 없음")
