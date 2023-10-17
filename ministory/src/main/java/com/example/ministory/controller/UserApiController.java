@@ -2,6 +2,7 @@ package com.example.ministory.controller;
 
 import com.example.ministory.entity.User;
 import com.example.ministory.repository.UserRepository;
+import com.example.ministory.dto.UserEntityDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
