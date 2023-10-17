@@ -66,4 +66,11 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Notify> notifyList = new ArrayList<>();
+
+    public void addLikes(Long userId, Long postId) {
+        likeList.add(Likes.builder()
+                .user(User.builder().userId(userId).build())
+                .post(Post.builder().postId(postId).build())
+                .build());
+    }
 }
