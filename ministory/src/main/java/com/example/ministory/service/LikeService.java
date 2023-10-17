@@ -1,13 +1,13 @@
 package com.example.ministory.service;
 
 import com.example.ministory.dto.LikesDto;
-import com.example.ministory.dto.pushLikesDto;
 import com.example.ministory.entity.Likes;
 import com.example.ministory.entity.User;
 import com.example.ministory.repository.LikeRepository;
 import com.example.ministory.repository.UserRepository;
 import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.stereotype.Service;
 
@@ -24,9 +24,9 @@ public class LikeService {
 		user.addLikes(request.getUserId(), request.getPostId());
 	}
 
-	@Transactional
-	public void deleteLikes(LikesDto request) {
-		Likes likes = likeRepository.findByUserIdAndPostId(request.getUserId(), request.getPostId()).orElseThrow(() -> new IllegalArgumentException("해당 좋아요가 없습니다."));
-		likeRepository.delete(likes);
-	}
+//	@Transactional
+//	public void deleteLikes(LikesDto request) {
+//		Likes likes = likeRepository.findByUserIdAndPostId(request.getUserId(), request.getPostId()).orElseThrow(() -> new IllegalArgumentException("해당 좋아요가 없습니다."));
+//		likeRepository.delete(likes);
+//	}
 }

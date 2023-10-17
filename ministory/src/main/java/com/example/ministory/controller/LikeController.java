@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,11 +28,11 @@ public class LikeController {
 		likeService.pushLikes(request);
 	}
 
-	@Operation(summary = "좋아요 취소")
-	@PostMapping("/cancel")
-	public void deleteLikes(@RequestBody @Valid LikesDto request) {
-		likeService.deleteLikes(request);
-	}
+//	@Operation(summary = "좋아요 취소")
+//	@PostMapping("/cancel")
+//	public void deleteLikes(@RequestBody @Valid LikesDto request) {
+//		likeService.deleteLikes(request);
+//	}
 
 	// 좋아요 모두 모아보는 API
 
