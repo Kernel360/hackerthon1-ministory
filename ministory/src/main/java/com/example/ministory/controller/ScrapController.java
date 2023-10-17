@@ -23,11 +23,11 @@ public class ScrapController {
 		scrapService.addScrap(request);
 	}
 
-	//	@Operation(summary = "스크랩 취소")
-	//	@PostMapping("/cancel")
-	//	public void deleteLikes(@RequestBody @Valid LikesDto request) {
-	//		scrapService.deleteLikes(request);
-	//	}
+		@Operation(summary = "스크랩 취소")
+		@PostMapping("/cancel")
+		public void deleteScrap(@RequestBody @Valid ScrapDto request) {
+			scrapService.deleteScrap(request);
+		}
 	//
 	//	// 스크랩 모두 모아보는 API
 	//	@PostMapping("/all")

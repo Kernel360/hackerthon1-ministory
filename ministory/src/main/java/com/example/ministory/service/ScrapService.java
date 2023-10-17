@@ -7,9 +7,11 @@ import com.example.ministory.dto.ScrapDto;
 import com.example.ministory.dto.UserIdDto;
 import com.example.ministory.entity.Likes;
 import com.example.ministory.entity.Post;
+import com.example.ministory.entity.Scrap;
 import com.example.ministory.entity.User;
 import com.example.ministory.repository.LikeRepository;
 import com.example.ministory.repository.PostRepository;
+import com.example.ministory.repository.ScrapRepository;
 import com.example.ministory.repository.UserRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import java.util.ArrayList;
@@ -26,7 +28,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class ScrapService {
 
 	private final UserRepository userRepository;
-	private final LikeRepository likeRepository;
+	private final ScrapRepository scrapRepository;
 	private final PostRepository postRepository;
 
 	@Transactional
@@ -39,15 +41,15 @@ public class ScrapService {
 		post.setScrapCount(post.getScrapCount() + 1);
 	}
 
-//	@Transactional
-//	public void deleteLikes(LikesDto request) {
-//		User user = userRepository.findById(request.getUserId()).orElseThrow(() -> new IllegalArgumentException("해당 유저가 없습니다."));
-//		Post post = postRepository.findById(request.getPostId()).orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다."));
-//		post.setLikeCount(post.getLikeCount() - 1);
-//		Likes likes = likeRepository.findByUserAndPost(user, post).orElseThrow(() -> new IllegalArgumentException("해당 좋아요가 없습니다."));
-//		likeRepository.delete(likes);
-//	}
-//
+	@Transactional
+	public void deleteScrap(ScrapDto request) {
+		User user = userRepository.findById(request.getUserId()).orElseThrow(() -> new IllegalArgumentException("해당 유저가 없습니다."));
+		Post post = postRepository.findById(request.getPostId()).orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다."));
+		post.setScrapCount(post.getScrapCount() - 1);
+		Scrap scrap = scrapRepository.findByUserAndPost(user, post).orElseThrow(() -> new IllegalArgumentException("해당 좋아요가 없습니다."));
+		scrapRepository.delete(scrap);
+	}
+
 //	// 여기 쿼리 진짜 비효율적임. 더 빨리, 효율적으로 가져오려면 어떻게 바꿀 수 있을지 고민해보기
 //	@Transactional
 //	public List<LikePostDto> getAllLikes(UserIdDto request) {
