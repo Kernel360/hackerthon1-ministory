@@ -33,7 +33,7 @@
 [피그마](https://www.figma.com/file/EbqWx8qFW1O9U5jDJUwkfQ/ministory?type=design&node-id=0-1&mode=design&t=Bbw5lxTm8rB38Uh6-0)
 
 ### API 문서
-로컬에서 서버 돌리고
+로컬에서 서버 돌리시고
 http://localhost:8080/swagger-ui/index.html
 로 들어가시면 확인할 수 있습니다. 
 

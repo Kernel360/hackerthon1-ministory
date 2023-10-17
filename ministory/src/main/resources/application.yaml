@@ -22,11 +22,11 @@ springdoc:
   version: v1.0.0
   packages-to-scan: com.example.swagger3test
   swagger-ui:
-    path: /api-docs
+#    path: /api-docs
     tags-sorter: alpha
     operations-sorter: alpha
   api-docs:
-    path: /api-docs/json
+#    path: /api-docs/json
     groups:
       enabled: true
   cache:
