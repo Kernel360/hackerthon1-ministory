@@ -1,5 +1,6 @@
 package com.example.ministory.dto;
 
+
 import java.sql.Timestamp;
 
 import javax.validation.constraints.Email;
@@ -20,6 +21,7 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 public class UserDto {
+
     private Long userId;
 
     @Size(min = 4, message = "닉네임은 4글자 이상 이어야 합니다")
@@ -68,7 +70,7 @@ public class UserDto {
                 .isSocial(isSocial)
                 .address(address)
                 .build();
-
+          
         return user;
     }
 }

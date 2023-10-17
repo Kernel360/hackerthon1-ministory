@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/defaultLayout}" layout:fragment="Content">
+<head>
+  <title>헬로 페이지</title>
+</head>
+<body>
+<div style="display: flex; justify-content: center">
+  <form>
+    <input id="username" name="username"/>
+    <input id="password" type="password" name="password"/>
+    <input type="submit" />
+    <br>
+    <a href="/users/github/start">Continue with Github &rarr;</a>
+  </form>
+</div>
+</body>
+</html>
