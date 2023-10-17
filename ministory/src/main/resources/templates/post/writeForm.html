@@ -42,7 +42,13 @@
                     const category_id = document.querySelector("#category").value;
                     const content_md = editor.getMarkdown();
                     const content_html = editor.getHTML();
-                    const inputData= {"title": title, "content_md" : content_md, "content_html" : content_html, "category_id" : category_id}
+                    const inputData = {
+                        "title": title,
+                        "content_md": content_md,
+                        "content_html": content_html,
+                        "category_id": category_id
+                    }
+                }
             </script>
             <button id="submit_btn" class="btn btn-primary">작성하기</button>
         </form>
