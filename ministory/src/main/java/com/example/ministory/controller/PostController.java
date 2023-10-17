@@ -9,6 +9,7 @@ import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -26,6 +27,15 @@ public class PostController {
     private PostService postService;
 
     private final Long FINDED_USER_ID = Long.valueOf(1);
+
+    @GetMapping("/view/{postId}")
+    public ModelAndView viewPostForm(@PathVariable(name = "postId") Long postId) {
+        ModelAndView mv = new ModelAndView("post/viewForm");
+        Post post = postService.getPost(postId);
+        postService.addViewCount(postId);
+        mv.addObject("post", post);
+        return mv;
+    }
 
     @GetMapping("/write")
     public ModelAndView showWriteForm() {
