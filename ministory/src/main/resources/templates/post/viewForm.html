@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{layout/defaultLayout}">
+  <div layout:fragment="content" class="container my-3 border-bottom">
+    <div>
+      <h4 id="title">게시글 제목</h4>
+    </div>
+    <div id="board">
+
+    </div>
+    <script th:inline="javascript">
+      /*<![CDATA[*/
+      const title = document.getElementById("title");
+      title.innerText = [[${post.title}]];
+
+      const board = document.getElementById("board");
+      board.innerHTML = [[${post.htmlContent}]];
+      /*]]>*/
+    </script>
+  </div>
+</html>
