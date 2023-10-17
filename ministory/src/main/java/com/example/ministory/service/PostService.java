@@ -24,7 +24,15 @@ public class PostService {
     private final PostRepository postRepository;
 
     public Post getPost(Long postId) {
+        // todo: 멘토링 시 포스트 view 를 위해 post 객체를 select 하는 부분과
+        //  view count 를 +1 업데이트 하는 부분의 로직을 나눠야 할지, 합쳐야 할지 질문해야함!
         return postRepository.findById(postId).orElseThrow(() -> new RuntimeException());
+    }
+
+    public void addViewCount(Long postId) {
+        Post post = postRepository.findById(postId).get();
+        post.setViewCount(post.getViewCount() + 1);
+        postRepository.save(post);
     }
     public List<Category> findUserCategory(Long userId) {
         User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException());

@@ -32,6 +32,7 @@ public class PostController {
     public ModelAndView viewPostForm(@PathVariable(name = "postId") Long postId) {
         ModelAndView mv = new ModelAndView("post/viewForm");
         Post post = postService.getPost(postId);
+        postService.addViewCount(postId);
         mv.addObject("post", post);
         return mv;
     }
