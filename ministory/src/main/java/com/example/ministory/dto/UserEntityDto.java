@@ -1,6 +1,6 @@
 package com.example.ministory.dto;
 
-import com.example.ministory.entity.UserEntity;
+import com.example.ministory.entity.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -41,8 +41,8 @@ public class UserEntityDto {
     @NotBlank(message = "블로그 주소는 필수항목입니다.")
     private String address;
 
-    public UserEntity toEntity() {
-        UserEntity userEntity = UserEntity.builder()
+    public User toEntity() {
+        User userEntity = User.builder()
                 .userId(userId)
                 .nickname(nickname)
                 .birthday(birthday)

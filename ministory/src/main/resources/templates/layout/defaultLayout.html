@@ -10,7 +10,7 @@
   <title>ministory layout</title>
 </head>
 <body>
-<nav th:replace="~{navbar :: navbarFragment}"></nav>
+<nav th:replace="~{fragments/navbar :: navbarFragment}"></nav>
 <th:block layout:fragment="content"></th:block>
 <script th:src="@{/bootstrap.min.js}"></script>
 <th:block layout:fragment="script"></th:block>
