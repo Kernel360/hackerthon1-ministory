@@ -37,6 +37,14 @@ public class PostController {
 		return mv;
 	}
 
+	@GetMapping("/view/refresh/{postId}")
+	public ModelAndView refreshViewPostForm(@PathVariable(name = "postId") Long postId) {
+		ModelAndView mv = new ModelAndView("post/viewForm");
+		Post post = postService.getPost(postId);
+		mv.addObject("post", post);
+		return mv;
+	}
+
 	@GetMapping("/write")
 	public ModelAndView showWriteForm() {
 		// todo: 세션 정보 확인 필요.

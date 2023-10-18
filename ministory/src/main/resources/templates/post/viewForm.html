@@ -1,22 +1,185 @@
 <!DOCTYPE HTML>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:th="http://www.thymeleaf.org"
-      layout:decorate="~{layout/defaultLayout}">
-  <div layout:fragment="content" class="container my-3 border-bottom">
-    <div>
-      <h4 id="title">게시글 제목</h4>
-    </div>
-    <div id="board">
+<html layout:decorate="~{layout/defaultLayout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>
+        /* 전체 레이아웃 스타일 */
+        body {
+            font-family: 'Arial', sans-serif;
+        }
 
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* 제목 스타일 */
+        #title {
+            margin-top: 20px;
+            font-size: 24px;
+        }
+
+        /* 게시글 내용 스타일 */
+        #board {
+            margin-bottom: 20px;
+        }
+
+        /* 메타 정보 스타일 */
+        .meta-info {
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        /* 좋아요, 스크랩 버튼 스타일 */
+        .action-buttons {
+            margin-top: 10px;
+        }
+
+        /* 카테고리 바 스타일 */
+        .category-bar {
+            background-color: #f2f2f2;
+            padding: 10px;
+            margin-top: 20px;
+        }
+
+        /* 댓글 폼 스타일 */
+        #comment-form {
+            margin-top: 20px;
+        }
+
+        /* 조회수, 좋아요수, 스크랩 수 부모 요소 스타일 */
+        .stats {
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+<div class="container my-3 border-bottom" layout:fragment="content">
+    <h4 id="title">게시글 제목</h4>
+    <div id="board"></div>
+    <div class="stats">
+        <div class="meta-info">작성일: <span id="createdAt"></span></div>
+        <div class="meta-info">조회수: <span id="viewCount"></span></div>
+        <div class="meta-info">좋아요: <span id="likeCount"></span></div>
+        <div class="meta-info">스크랩: <span id="scrapCount"></span></div>
     </div>
+    <div class="action-buttons">
+        <button id="likeButton">좋아요</button>
+        <button id="scrapButton">스크랩</button>
+    </div>
+    <div class="category-bar">
+        <!-- 카테고리 바 내용 추가 -->
+    </div>
+    <form id="comment-form">
+        <!-- 댓글 폼 내용 추가 -->
+    </form>
     <script th:inline="javascript">
-      /*<![CDATA[*/
-      const title = document.getElementById("title");
-      title.innerText = [[${post.title}]];
+        /*<![CDATA[*/
+        // 페이지 로드 시 실행되는 코드
+        document.addEventListener("DOMContentLoaded", function () {
+            // 여기에 필요한 초기화 코드 추가
+            const title = document.getElementById("title");
+            title.innerText = [[${post.title}]];
 
-      const board = document.getElementById("board");
-      board.innerHTML = [[${post.htmlContent}]];
-      /*]]>*/
+            const board = document.getElementById("board");
+            board.innerHTML = [[${post.htmlContent}]];
+
+            // 서버에서 받은 ISO 8601 형식의 날짜 문자열
+            var createdAtFromServer = [[${post.createdAt}]]; // 실제로는 서버에서 받은 값을 넣어주세요
+            // Date 객체 생성
+            var createdAtDate = new Date(createdAtFromServer);
+            // Date 객체를 원하는 형식으로 변환 (예: YYYY년 MM월 DD일)
+            var formattedDate = createdAtDate.toLocaleDateString("ko-KR", {
+                year: "numeric",
+                month: "long",
+                day: "numeric"
+            });
+            // DOM에 적용
+            const createdAt = document.getElementById("createdAt").innerText = /*"작성일: " +*/ formattedDate;
+
+            const viewCount = document.getElementById("viewCount");
+            viewCount.innerText = [[${post.viewCount}]];
+
+            const likeCount = document.getElementById("likeCount");
+            likeCount.innerText = [[${post.likeCount}]];
+
+            const scrapCount = document.getElementById("scrapCount");
+            scrapCount.innerText = [[${post.scrapCount}]];
+        });
+
+
+        // 좋아요 버튼 클릭 시 실행되는 함수
+        document.getElementById("likeButton").addEventListener("click", function () {
+            // 좋아요 버튼이 클릭되었을 때 실행되는 코드
+            var postId = [[${post.postId}]];
+            var userId = 1;
+            var likeDto = {
+                postId: postId,
+                userId: userId
+            };
+            console.log(postId);
+
+            // 좋아요를 서버로 전송
+            fetch(`http://localhost:8080/api/like/push`, {
+                method: 'POST', // POST 요청
+                headers: {
+                    'Content-Type': 'application/json', // JSON 형태의 데이터 전송
+                },
+                body: JSON.stringify(likeDto), // 좋아요 데이터를 JSON 형태로 변환하여 전송
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                })
+                .then(data => {
+                    // 서버에서 받은 응답 데이터 처리
+                    location.href = "http://localhost:8080/post/view/refresh/" + postId;
+                })
+                .catch(error => {
+                    // 오류 처리
+                    console.error('Error:', error);
+                });
+        });
+
+        // 스크랩 버튼 클릭 시 실행되는 함수
+        document.getElementById("scrapButton").addEventListener("click", function () {
+            var postId = [[${post.postId}]];
+            var userId = 1;
+            var likeDto = {
+                postId: postId,
+                userId: userId
+            };
+
+            fetch(`http://localhost:8080/api/scrap/push`, {
+                method: 'POST', // POST 요청
+                headers: {
+                    'Content-Type': 'application/json', // JSON 형태의 데이터 전송
+                },
+                body: JSON.stringify(likeDto), // 좋아요 데이터를 JSON 형태로 변환하여 전송
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                })
+                .then(data => {
+                    // 서버에서 받은 응답 데이터 처리
+                    location.href = "http://localhost:8080/post/view/refresh/" + postId;
+                })
+                .catch(error => {
+                    // 오류 처리
+                    console.error('Error:', error);
+                });
+        });
+        /*]]>*/
     </script>
-  </div>
+</div>
+</body>
 </html>
+
+
+
+
