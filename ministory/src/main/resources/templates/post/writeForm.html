@@ -11,9 +11,9 @@
             </div>
             <div class="mb-3">
                 <label for="category" class="form-label">카테고리</label>
-                <select id="category" name="category" class="form-control">
+                <input id="category" name="category" class="form-control">
                     <option th:each="category : ${categories}" th:value="${category.categoryId}" th:text="${category.title}"></option>
-                </select>
+                </input>
             </div>
             <link rel="stylesheet" th:href="@{/editormd/css/editormd.css}"/>
             <div id="test-editor">

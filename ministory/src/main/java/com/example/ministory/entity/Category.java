@@ -34,7 +34,7 @@ public class Category {
     @JoinColumn(name = "user_id")
     private User user;
 
-    private String title;
+    private String categoryTitle;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Post> postList = new ArrayList<>();
