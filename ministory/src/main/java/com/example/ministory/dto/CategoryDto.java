@@ -14,13 +14,13 @@ import lombok.ToString;
 @NoArgsConstructor
 public class CategoryDto {
     private Long categoryId;
-    private String categoryTitle;
+    private String title;
 
     public Category toEntity(User user) {
         return Category.builder()
                 .categoryId(categoryId)
                 .user(user)
-                .categoryTitle(categoryTitle)
+                .title(title)
                 .build();
     }
 }

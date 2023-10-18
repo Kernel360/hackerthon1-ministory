@@ -32,16 +32,16 @@ public class CategoryService {
     @Transactional
     public void saveCategoryOnUser(CategoryDto categoryDto, Long userId) {
         User user = userRepository.findById(userId).orElseThrow(()-> new RuntimeException());
-        System.out.println(categoryDto.getCategoryTitle());
+        System.out.println(categoryDto.getTitle());
         Category category = categoryDto.toEntity(user);
 
         categoryRepository.save(category);
     }
 
     @Transactional
-    public void updateCategory(Long categoryId, String categoryTitle) {
+    public void updateCategory(Long categoryId, String title) {
         Category category = categoryRepository.findById(categoryId).orElseThrow(() -> new RuntimeException());
-        category.setCategoryTitle(categoryTitle);
+        category.setTitle(title);
     }
 
     @Transactional

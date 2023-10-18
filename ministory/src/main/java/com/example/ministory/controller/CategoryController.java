@@ -35,7 +35,7 @@ public class CategoryController {
     // TODO: 카테고리를 입력하는 함수
     @PostMapping("")
     public String postCategory(CategoryDto categoryDto, Long userId) {
-        categoryDto.setCategoryTitle("test");
+        categoryDto.setTitle("test");
         // TODO: 1번 유저가 생성한 카테고리로 우선 분류
         categoryService.saveCategoryOnUser(categoryDto, 1L);
         return "category/categoryList";
