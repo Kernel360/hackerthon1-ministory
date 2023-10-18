@@ -28,56 +28,56 @@ import lombok.NoArgsConstructor;
 @JsonNaming(PropertyNamingStrategies.LowerCamelCaseStrategy.class)
 public class User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long userId;
 
-    private String nickname;
+	private String nickname;
 
-    private Timestamp birthday;
+	private Timestamp birthday;
 
-    @Column(columnDefinition = "TEXT")
-    private String imagePath;
+	@Column(columnDefinition = "TEXT")
+	private String imagePath;
 
-    private String email;
+	private String email;
 
-    @Column(columnDefinition = "TEXT")
-    private String password;
+	@Column(columnDefinition = "TEXT")
+	private String password;
 
-    @Column(columnDefinition = "TINYINT(1)")
-    private boolean  isSocial;
+	@Column(columnDefinition = "TINYINT(2)")
+	private boolean isSocial;
 
-    private String address;
+	private String address;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Category> categoryList = new ArrayList<>();
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Category> categoryList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Post> postList = new ArrayList<>();
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Post> postList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Comment> commentList = new ArrayList<>();
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Comment> commentList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Likes> likeList = new ArrayList<>();
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Likes> likeList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Scrap> scrapList = new ArrayList<>();
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Scrap> scrapList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Notify> notifyList = new ArrayList<>();
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Notify> notifyList = new ArrayList<>();
 
-    public void addLikes(Long userId, Long postId) {
-        likeList.add(Likes.builder()
-                .user(User.builder().userId(userId).build())
-                .post(Post.builder().postId(postId).build())
-                .build());
-    }
+	public void addLikes(Long userId, Long postId) {
+		likeList.add(Likes.builder()
+			.user(User.builder().userId(userId).build())
+			.post(Post.builder().postId(postId).build())
+			.build());
+	}
 
-    public void addScrap(Long userId, Long postId) {
-        scrapList.add(Scrap.builder()
-                .user(User.builder().userId(userId).build())
-                .post(Post.builder().postId(postId).build())
-                .build());
-    }
+	public void addScrap(Long userId, Long postId) {
+		scrapList.add(Scrap.builder()
+			.user(User.builder().userId(userId).build())
+			.post(Post.builder().postId(postId).build())
+			.build());
+	}
 }
