@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Liked Posts</title>
+</head>
+
+<body>
+
+<h2>내가 좋아요 누른 게시글 목록</h2>
+
+<div th:each="likePost, iterStat : ${likePostDto}" th:class="${iterStat.index % 3 == 0} ? 'row' : ''">
+    <div class="col">
+        <!-- 게시글 상세 화면으로 이동하는 링크 추가 -->
+        <a th:href="@{'/api/like/post/' + ${likePost.postId}}">
+            <h3 th:text="${likePost.title}"></h3>
+        </a>
+        <p>작성일: <span th:text="${likePost.CreatedAt}"></span></p>
+        <p>조회수: <span th:text="${likePost.viewCount}"></span></p>
+        <p>좋아요수: <span th:text="${likePost.likeCount}"></span></p>
+        <p>스크랩수: <span th:text="${likePost.scrapCount}"></span></p>
+    </div>
+</div>
+
+</body>
+
+</html>
+
+
