@@ -66,14 +66,6 @@ public class PostService {
 		User user = userRepository.findById(request.getUserId())
 				.orElseThrow(() -> new NotFoundException("해당 유저가 없습니다."));
 		List<Post> postList = postRepository.findAllByUser(user);
-		/*List<PostDto> list = new ArrayList<>();
-		for (Post post : postList) {
-			PostDto postDto = PostDto.builder().postId(post.getPostId())
-					.title(post.getTitle()).
-					createdAt(post.getCreatedAt()).
-					viewCount(post.getViewCount()).
-			list.add(postDto);
-		}*/
 		return postList;
 	}
 
