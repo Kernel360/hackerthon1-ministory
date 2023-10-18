@@ -8,8 +8,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+@AllArgsConstructor
+@Builder
 @NoArgsConstructor
 @Entity
 @Table(name = "likes")
@@ -23,6 +28,7 @@ public class Likes {
 	@JoinColumn(name = "user_id")
 	private User user;
 
+	@Getter
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "post_id")
 	private Post post;

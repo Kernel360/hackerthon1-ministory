@@ -5,7 +5,7 @@ spring:
       format_sql: true
       dialect: org.hibernate.dialect.MySQL8Dialect
     hibernate:
-      ddl-auto: validate
+      ddl-auto: create
   datasource:
     url: jdbc:mysql://localhost:3306/mini_story?useSSL=false&useUnicode=true&allowPublicKeyRetrieval=true
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -22,11 +22,11 @@ springdoc:
   version: v1.0.0
   packages-to-scan: com.example.swagger3test
   swagger-ui:
-    path: /api-docs
+#    path: /api-docs
     tags-sorter: alpha
     operations-sorter: alpha
   api-docs:
-    path: /api-docs/json
+#    path: /api-docs/json
     groups:
       enabled: true
   cache:

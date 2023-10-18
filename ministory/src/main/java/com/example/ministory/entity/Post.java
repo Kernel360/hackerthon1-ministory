@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -37,7 +38,10 @@ public class Post {
     private String title;
 
     @Column(columnDefinition = "TEXT")
-    private String content;
+    private String htmlContent;
+
+    @Column(columnDefinition = "TEXT")
+    private String markdownContent;
 
     @CreationTimestamp
     private Timestamp createdAt;
@@ -59,6 +63,17 @@ public class Post {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Scrap> scrapList = new ArrayList<>();
+
+    public Post(Category category, User user, String title, String htmlContent, String markdownContent) {
+        this.category = category;
+        this.user = user;
+        this.title = title;
+        this.htmlContent = htmlContent;
+        this.markdownContent = markdownContent;
+        this.likeCount = Long.valueOf(0);
+        this.viewCount = Long.valueOf(0);
+        this.scrapCount = Long.valueOf(0);
+    }
 }
 
 
