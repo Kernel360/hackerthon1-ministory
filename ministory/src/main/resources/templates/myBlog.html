@@ -32,10 +32,12 @@
         }
     </style>
     <title>Your Blog</title>
+<!--    상단 내비게이션 바 확인 필요-->
     <th:block th:replace="fragments/navbar :: navbarFragment"></th:block>
 </head>
 <body>
 <div id="user-message">
+<!--    현재 유저 이름 띄우기 구현 안됨-->
     <p th:text="${currentUser} + '님의 블로그입니다.'"></p>
 </div>
 
