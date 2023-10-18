@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{layout/defaultLayout}">
+<div layout:fragment="content" class="container my-3 border-bottom">
+    <div>
+        <h4></h4>
+    </div>
+    <div/>
+    <!--action을 통해서 지금은 test/commentViewTest page로 가고 있지만 게시글과의 통합을 위해서 새로운 템플릿 (View)가 필요-->
+    <form th:action="@{/test/commentViewTest}" th:object="${commentDto}" method="post">
+        <div class="mb-3">
+            <label for="content" class="form-label">댓글</label>
+            <input type="textarea" id="content" name="content" th:field="*{content}"
+                   class="form-control" placeholder="댓글을 입력하세요">
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary">작성하기</button>
+    </form>
+</div> <!-- /container -->
+</html>
