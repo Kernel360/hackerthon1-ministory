@@ -46,6 +46,7 @@ public class PostService {
         String htmlContent = (String) map.get("content_html");
 
         Post post = new Post(categoryRepository.findById(categoryId).orElseThrow(() -> new RuntimeException()),
+//              TODO: userId 로 바꿔야함
                 userRepository.findById(Long.valueOf(1)).orElseThrow(() -> new RuntimeException()),
                 title, htmlContent, markdownContent);
 

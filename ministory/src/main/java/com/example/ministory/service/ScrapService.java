@@ -15,7 +15,7 @@ import com.example.ministory.repository.LikeRepository;
 import com.example.ministory.repository.PostRepository;
 import com.example.ministory.repository.ScrapRepository;
 import com.example.ministory.repository.UserRepository;
-import io.swagger.v3.oas.annotations.Operation;
+//import io.swagger.v3.oas.annotations.Operation;
 import java.util.ArrayList;
 import java.util.List;
 import javax.transaction.Transactional;
