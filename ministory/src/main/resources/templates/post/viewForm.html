@@ -136,7 +136,9 @@
                 })
                 .then(data => {
                     // 서버에서 받은 응답 데이터 처리
-                    location.href = "http://localhost:8080/post/view/refresh/" + postId;
+                    var isRefresh = true;
+                    location.href = `http://localhost:8080/post/view/${postId}?isRefresh=${isRefresh}`;
+                    // location.href = "http://localhost:8080/post/view/refresh/" + postId;
                 })
                 .catch(error => {
                     // 오류 처리
@@ -167,7 +169,10 @@
                 })
                 .then(data => {
                     // 서버에서 받은 응답 데이터 처리
-                    location.href = "http://localhost:8080/post/view/refresh/" + postId;
+                    var isRefresh = true;
+                    location.href = `http://localhost:8080/post/view/${postId}?isRefresh=${isRefresh}`;
+
+                    // location.href = "http://localhost:8080/post/view/" + postId;
                 })
                 .catch(error => {
                     // 오류 처리

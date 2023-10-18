@@ -29,10 +29,11 @@ public class PostController {
 	private PostService postService;
 
 	@GetMapping("/view/{postId}")
-	public ModelAndView viewPostForm(@PathVariable(name = "postId") Long postId) {
+	public ModelAndView viewPostForm(@PathVariable(name = "postId") Long postId, Boolean isRefresh) {
 		ModelAndView mv = new ModelAndView("post/viewForm");
 		Post post = postService.getPost(postId);
-		postService.addViewCount(postId);
+		if (isRefresh == null || !isRefresh)
+			postService.addViewCount(postId);
 		mv.addObject("post", post);
 		return mv;
 	}
