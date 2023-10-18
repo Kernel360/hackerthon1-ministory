@@ -1,15 +1,16 @@
 package com.example.ministory.controller;
 
-import com.example.ministory.dto.DeleteManyScrapDto;
-import com.example.ministory.dto.ScrapDto;
-import com.example.ministory.dto.ScrapPostDto;
-import com.example.ministory.dto.UserIdDto;
+import com.example.ministory.dto.*;
 import com.example.ministory.service.ScrapService;
 //import io.swagger.v3.oas.annotations.Operation;
+import java.util.ArrayList;
 import java.util.List;
 import javax.validation.Valid;
+
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,5 +45,14 @@ public class ScrapController {
 		public void deleteManyScrap(@RequestBody @Valid DeleteManyScrapDto request) {
 			scrapService.deleteManyScrap(request);
 		}
+
+
+	@ApiOperation(value = "유저에 따른 ScrapPostDTO 조회")
+	@PostMapping("/myScraps")
+	public String getAllScrap(@RequestBody @Valid UserIdDto request, Model model) {
+		List<ScrapPostDto> list = new ArrayList<>(scrapService.getAllScrap(request));
+		model.addAttribute("scrapPostDto", list);
+		return "myScraps";
+	}
 
 }

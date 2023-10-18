@@ -10,15 +10,15 @@ import io.swagger.annotations.ApiOperation;
 //import io.swagger.v3.oas.annotations.Operation;
 //import io.swagger.v3.oas.annotations.responses.ApiResponses;
 //import io.swagger.v3.oas.annotations.tags.Tag;
+import java.util.ArrayList;
 import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 //@Tag(name = "좋아요 관련 API")
 @Api(tags = {"좋아요 관련 API"})
@@ -47,6 +47,14 @@ public class LikeController {
 	@PostMapping("/all")
 	public List<LikePostDto> getAllLikes(@RequestBody @Valid UserIdDto request) {
 		return likeService.getAllLikes(request);
+	}
+
+	@ApiOperation(value = "유저에 따른 LikePostDTO 조회")
+	@PostMapping("/myLikes")
+	public String getAllLikes(@RequestBody @Valid UserIdDto request, Model model) {
+        List<LikePostDto> list = new ArrayList<>(likeService.getAllLikes(request));
+		model.addAttribute("likePostDto", list);
+		return "myLikes";
 	}
 
 	// 좋아요 여러개 선택해서 한번에 삭제하는 API
