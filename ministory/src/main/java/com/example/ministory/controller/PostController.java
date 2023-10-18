@@ -1,10 +1,18 @@
 package com.example.ministory.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.example.ministory.dto.LikePostDto;
+import com.example.ministory.dto.PostDto;
+import com.example.ministory.dto.UserIdDto;
+import com.example.ministory.service.UserService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +28,9 @@ import com.google.gson.Gson;
 
 import lombok.RequiredArgsConstructor;
 
-@RestController
+import javax.validation.Valid;
+
+@Controller
 @RequiredArgsConstructor
 @RequestMapping("/post")
 public class PostController {
@@ -66,6 +76,15 @@ public class PostController {
 		}
 		// return json;
 		return postId;
+	}
+
+	@ApiOperation(value = "내가 작성한 Post 조회")
+	@PostMapping("/myBlog")
+	public String getPost(@RequestBody @Valid UserIdDto request, Model model) {
+		List<Post> list = new ArrayList<>(postService.getPostByUserId(request));
+		model.addAttribute("posts", list);
+		System.out.println(list.get(0).getHtmlContent());
+		return "myBlog";
 	}
 
 }

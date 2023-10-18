@@ -1,10 +1,14 @@
 package com.example.ministory.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import javax.transaction.Transactional;
 
+import com.example.ministory.dto.PostDto;
+import com.example.ministory.dto.UserIdDto;
+import com.example.ministory.exception.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.example.ministory.entity.Category;
@@ -55,6 +59,22 @@ public class PostService {
 
 		postRepository.save(post);
 		return post.getPostId();
+	}
+
+	@Transactional
+	public List<Post> getPostByUserId(UserIdDto request) {
+		User user = userRepository.findById(request.getUserId())
+				.orElseThrow(() -> new NotFoundException("해당 유저가 없습니다."));
+		List<Post> postList = postRepository.findAllByUser(user);
+		/*List<PostDto> list = new ArrayList<>();
+		for (Post post : postList) {
+			PostDto postDto = PostDto.builder().postId(post.getPostId())
+					.title(post.getTitle()).
+					createdAt(post.getCreatedAt()).
+					viewCount(post.getViewCount()).
+			list.add(postDto);
+		}*/
+		return postList;
 	}
 
 }

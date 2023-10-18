@@ -3,17 +3,17 @@ package com.example.ministory.dto;
 import com.example.ministory.entity.Post;
 import com.example.ministory.entity.Category;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.validation.constraints.NotBlank;
+import java.sql.Timestamp;
 
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class PostDto {
     private Long postId;
 
@@ -26,4 +26,8 @@ public class PostDto {
     private String title;
 
     private String content;
+
+    private Timestamp createdAt;
+
+    private Long viewCount;
 }
