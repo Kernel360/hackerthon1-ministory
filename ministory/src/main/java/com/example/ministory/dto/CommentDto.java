@@ -4,10 +4,7 @@ import com.example.ministory.entity.Comment;
 import com.example.ministory.entity.Post;
 import com.example.ministory.entity.User;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 @Getter
 @Setter

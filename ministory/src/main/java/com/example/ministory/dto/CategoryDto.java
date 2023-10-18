@@ -1,7 +1,6 @@
 package com.example.ministory.dto;
 
 import com.example.ministory.entity.Category;
-import com.example.ministory.entity.Post;
 import com.example.ministory.entity.User;
 
 import lombok.Getter;
