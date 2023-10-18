@@ -1,8 +1,7 @@
 package com.example.ministory.entity;
 
-import com.example.ministory.util.NotifyType;
-import com.example.ministory.util.NotifyTypeConverter;
 import java.sql.Timestamp;
+
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
@@ -12,9 +11,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import lombok.NoArgsConstructor;
+
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+
+import com.example.ministory.util.NotifyType;
+import com.example.ministory.util.NotifyTypeConverter;
+
+import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Entity
