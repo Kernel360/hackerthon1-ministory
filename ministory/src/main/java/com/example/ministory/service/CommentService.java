@@ -1,5 +1,7 @@
 package com.example.ministory.service;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
@@ -21,6 +23,13 @@ public class CommentService {
 	public CommentRepository commentRepository;
 	public UserRepository userRepository;
 	public PostRepository postRepository;
+
+	public List<Comment> findAllComments(Long userId, Long postId) {
+		User user = userRepository.findById(userId).orElseThrow(()-> new RuntimeException());
+		Post post = postRepository.findById(postId).orElseThrow(() -> new RuntimeException());
+
+		return commentRepository.findCommentsByUserAndPost(user, post);
+	}
 
 	public void saveCommentOnPost(CommentDto commentDto, Long userId, Long postId) {
 		User user = userRepository.findById(userId).orElseThrow(()-> new RuntimeException());
