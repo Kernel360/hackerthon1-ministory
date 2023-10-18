@@ -5,7 +5,7 @@ import com.example.ministory.dto.ScrapDto;
 import com.example.ministory.dto.ScrapPostDto;
 import com.example.ministory.dto.UserIdDto;
 import com.example.ministory.service.ScrapService;
-import io.swagger.v3.oas.annotations.Operation;
+//import io.swagger.v3.oas.annotations.Operation;
 import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -21,13 +21,13 @@ public class ScrapController {
 
 	private final ScrapService scrapService;
 
-	@Operation(summary = "스크랩 누르기")
+//	@Operation(summary = "스크랩 누르기")
 	@PostMapping("/push")
 	public void addScrap(@RequestBody @Valid ScrapDto request) {
 		scrapService.addScrap(request);
 	}
 
-		@Operation(summary = "스크랩 취소")
+//		@Operation(summary = "스크랩 취소")
 		@PostMapping("/cancel")
 		public void deleteScrap(@RequestBody @Valid ScrapDto request) {
 			scrapService.deleteScrap(request);
