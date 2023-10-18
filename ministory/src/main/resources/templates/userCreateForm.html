@@ -7,7 +7,7 @@
     <h4>회원가입</h4>
   </div>
 <div/>
-  <form th:action="@{/user/signup}" th:object="${userDto}" method="post">
+  <form th:action="@{/api/user/signup}" th:object="${userDto}" method="post">
     <div class="alert alert-danger" role="alert" th:if="${#fields.hasAnyErrors()}">
       <div th:each="err : ${#fields.allErrors()}" th:text="${err}" />
     </div>
