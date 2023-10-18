@@ -3,9 +3,8 @@ package com.example.ministory.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.ministory.dto.DeleteManyLikesDto;
 import com.example.ministory.dto.LikePostDto;
@@ -23,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class LikeService {
 
 	private final UserRepository userRepository;
@@ -54,7 +54,6 @@ public class LikeService {
 	}
 
 	// 여기 쿼리 진짜 비효율적임. 더 빨리, 효율적으로 가져오려면 어떻게 바꿀 수 있을지 고민해보기
-	@Transactional
 	public List<LikePostDto> getAllLikes(UserIdDto request) {
 		User user = userRepository.findById(request.getUserId())
 			.orElseThrow(() -> new NotFoundException("해당 유저가 없습니다."));
