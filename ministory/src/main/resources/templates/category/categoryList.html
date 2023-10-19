@@ -17,5 +17,28 @@
         </div>
         <button type="submit" class="btn btn-primary">등록하기</button>
     </form>
+
+    <div>
+        <table class="table">
+            <thead class="table">
+            <tr>
+                <th>카테고리명</th>
+                <th>삭제</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="category : ${categories}">
+                <td th:text="${category.title}"></td>
+                <td>
+                    <form th:action="@{/api/category/delete}" th:method="POST">
+                        <input type="hidden" name="categoryId" th:value="${category.categoryId}" />
+                        <button type="submit" name="_method" class="btn btn-danger" value="DELETE">삭제하기</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
 </div> <!-- /container -->
 </html>
