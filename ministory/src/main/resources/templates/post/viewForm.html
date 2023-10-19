@@ -48,6 +48,10 @@
             margin-top: 20px;
         }
 
+        #comment-list {
+            margin-top: 20px;
+        }
+
         /* 조회수, 좋아요수, 스크랩 수 부모 요소 스타일 */
         .stats {
             display: flex;
@@ -127,29 +131,46 @@
     <!-- 댓글 목록 -->
     <div id="comment-list">
         <!-- 각 댓글에 대한 반복문 -->
-        <div th:each="comment : ${comments}">
+        <div th:each="comment : ${commentDto}">
             <div>
-                <!-- 댓글 내용 표시 -->
-                <p th:text="${comment.content}"></p>
-
-                <!-- 대댓글 작성 폼 -->
+                <p>${comment.content}</p>
                 <form action="/test/commentViewTest" method="post" object="${commentDto}">
+                    <!-- 대댓글 작성 폼 -->
                     <div class="mb-3">
                         <label class="form-label" for="replyContent">대댓글</label>
                         <input class="form-control" id="replyContent" name="content" placeholder="대댓글을 입력하세요"
                                th:field="*{replyContent}" type="textarea">
-                        <!-- 부모 댓글의 ID를 숨겨 전달 -->
                         <input th:name="parentId" th:value="${comment.id}" type="hidden">
                     </div>
                     <br>
-                    <button class="btn btn-primary" type="submit">답글 작성하기</button>
+                    <button class="btn btn-primary" type="submit">작성하기</button>
                 </form>
-
                 <!-- 대댓글 목록 -->
-                <div th:each="reply : ${comment.replies}">
-                    <p th:text="${reply.content}"></p>
-                </div>
+                ${comment.replies ? renderCommentList(comment.replies) : ''}
             </div>
+
+            <!--            <div>-->
+            <!--                &lt;!&ndash; 댓글 내용 표시 &ndash;&gt;-->
+            <!--                <p th:text="${comment.content}"></p>-->
+
+            <!--                &lt;!&ndash; 대댓글 작성 폼 &ndash;&gt;-->
+            <!--                <form action="/test/commentViewTest" method="post" object="${commentDto}">-->
+            <!--                    <div class="mb-3">-->
+            <!--                        <label class="form-label" for="replyContent">대댓글</label>-->
+            <!--                        <input class="form-control" id="replyContent" name="content" placeholder="대댓글을 입력하세요"-->
+            <!--                               th:field="*{replyContent}" type="textarea">-->
+            <!--                        &lt;!&ndash; 부모 댓글의 ID를 숨겨 전달 &ndash;&gt;-->
+            <!--                        <input th:name="parentId" th:value="${comment.id}" type="hidden">-->
+            <!--                    </div>-->
+            <!--                    <br>-->
+            <!--                    <button class="btn btn-primary" type="submit">답글 작성하기</button>-->
+            <!--                </form>-->
+
+            <!--                &lt;!&ndash; 대댓글 목록 &ndash;&gt;-->
+            <!--                <div th:each="reply : ${comment.replies}">-->
+            <!--                    <p th:text="${reply.content}"></p>-->
+            <!--                </div>-->
+            <!--            </div>-->
         </div>
     </div>
 
@@ -292,14 +313,25 @@
         document.addEventListener("DOMContentLoaded", function () {
             // 댓글 목록을 표시할 영역의 요소를 찾음
             var commentListContainer = document.getElementById("comment-list");
+            var postId = [[${post.postId}]];
+
+            var commentDto = {
+                commentId: null,
+                parentId: null,
+                nickname: "",
+                content: "",
+                createdAt: null,
+                postId: null
+            };
 
             // 댓글 목록을 가져오는 함수
             function fetchCommentList() {
                 // API 요청
-                fetch("http://localhost:8080/api/comment/view")
+                fetch(`http://localhost:8080/api/comment/view/` + postId)
                     .then(response => response.json())
                     .then(data => {
                         // 댓글 목록을 가져온 후 화면에 표시
+                        console.log(data);
                         renderCommentList(data);
                     })
                     .catch(error => {
@@ -309,30 +341,25 @@
 
             // 댓글 목록을 화면에 표시하는 함수
             function renderCommentList(comments) {
-                // 기존 댓글 목록을 비움
-                commentListContainer.innerHTML = "";
-
-                // 가져온 댓글 목록을 반복하여 화면에 추가
                 comments.forEach(comment => {
                     var commentDiv = document.createElement("div");
                     commentDiv.innerHTML = `
-                    <div>
-                        <p>${comment.content}</p>
-                        <form action="/test/commentViewTest" method="post" object="${commentDto}">
-                            <!-- 대댓글 작성 폼 -->
-                            <div class="mb-3">
-                                <label class="form-label" for="replyContent">대댓글</label>
-                                <input class="form-control" id="replyContent" name="content" placeholder="대댓글을 입력하세요" th:field="*{replyContent}" type="textarea">
-                                <input th:name="parentId" th:value="${comment.id}" type="hidden">
-                            </div>
-                            <br>
-                            <button class="btn btn-primary" type="submit">답글 작성하기</button>
-                        </form>
-                        <!-- 대댓글 목록 -->
-                        ${comment.replies.map(reply => `<div><p>${reply.content}</p></div>`).join('')}
-                    </div>
-                `;
-
+        <div>
+            <p>${comment.content}</p>
+            <form action="/test/commentViewTest" method="post" object="${commentDto}">
+                <!-- 대댓글 작성 폼 -->
+                <div class="mb-3">
+                    <label class="form-label" for="replyContent">대댓글</label>
+                    <input class="form-control" id="replyContent" name="content" placeholder="대댓글을 입력하세요" th:field="*{replyContent}" type="textarea">
+                    <input th:name="parentId" th:value="${comment.id}" type="hidden">
+                </div>
+                <br>
+                <button class="btn btn-primary" type="submit">작성하기</button>
+            </form>
+            <!-- 대댓글 목록 -->
+            ${comment.replies ? renderCommentList(comment.replies) : ''}
+        </div>
+    `;
                     commentListContainer.appendChild(commentDiv);
                 });
             }
