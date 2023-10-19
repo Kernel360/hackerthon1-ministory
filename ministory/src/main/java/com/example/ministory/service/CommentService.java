@@ -1,11 +1,13 @@
 package com.example.ministory.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
+import com.example.ministory.dto.CommentDto;
 import com.example.ministory.dto.PostCommentDto;
 import com.example.ministory.entity.Comment;
 import com.example.ministory.entity.Post;
@@ -25,11 +27,27 @@ public class CommentService {
 	public UserRepository userRepository;
 	public PostRepository postRepository;
 
-	public List<Comment> findAllComments(Long userId, Long postId) {
-		User user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException("존재하지 않는 유저입니다."));
+	// public List<Comment> findAllComments(Long userId, Long postId) {
+	// 	User user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException("존재하지 않는 유저입니다."));
+	// 	Post post = postRepository.findById(postId).orElseThrow(() -> new NotFoundException("존재하지 않는 게시글입니다."));
+	//
+	// 	return commentRepository.findCommentsByUserAndPost(user, post);
+	// }
+
+	public List<CommentDto> findAllComments(Long postId) {
 		Post post = postRepository.findById(postId).orElseThrow(() -> new NotFoundException("존재하지 않는 게시글입니다."));
 
-		return commentRepository.findCommentsByUserAndPost(user, post);
+		List<Comment> commentList = commentRepository.findAllByPost(post);
+		return commentList.stream().map(c -> {
+			return CommentDto.builder()
+				.commentId(c.getCommentId())
+				.parentId(c.getParentId())
+				.nickname(c.getUser().getNickname())
+				.content(c.getContent())
+				.createdAt(c.getCreatedAt())
+				.postId(c.getPost().getPostId())
+				.build();
+		}).collect(Collectors.toList());
 	}
 
 	//TODO: 여기 댓글이랑 대ㅐ댓글이랑 로직 똑같아서 나눌 필요 없음.

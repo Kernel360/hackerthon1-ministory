@@ -3,33 +3,6 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <!--    <style>-->
-    <!--        body {-->
-    <!--            display: flex;-->
-    <!--            justify-content: space-between;-->
-    <!--        }-->
-
-    <!--        #categories, #posts {-->
-    <!--            width: 10%; /* 조절 가능한 비율 */-->
-    <!--            box-sizing: border-box;-->
-    <!--            padding: 0 15px;-->
-    <!--        }-->
-
-    <!--        #categories div, #posts div {-->
-    <!--            border: 1px solid #ccc;-->
-    <!--            margin-bottom: 10px;-->
-    <!--            padding: 10px;-->
-    <!--        }-->
-
-    <!--        #posts {-->
-    <!--            width: 90%; /* 조절 가능한 비율 */-->
-    <!--        }-->
-
-    <!--        #user-message {-->
-    <!--            font-size: 1.2em;-->
-    <!--            margin-bottom: 20px;-->
-    <!--        }-->
-    <!--    </style>-->
     <style>
         /* 전체 레이아웃 스타일 */
         body {
@@ -314,6 +287,60 @@
                 })
 
         });
+
+        // 페이지 로드 후 실행되는 함수
+        document.addEventListener("DOMContentLoaded", function () {
+            // 댓글 목록을 표시할 영역의 요소를 찾음
+            var commentListContainer = document.getElementById("comment-list");
+
+            // 댓글 목록을 가져오는 함수
+            function fetchCommentList() {
+                // API 요청
+                fetch("http://localhost:8080/api/comment/view")
+                    .then(response => response.json())
+                    .then(data => {
+                        // 댓글 목록을 가져온 후 화면에 표시
+                        renderCommentList(data);
+                    })
+                    .catch(error => {
+                        console.error("댓글 목록을 가져오는 중 오류 발생:", error);
+                    });
+            }
+
+            // 댓글 목록을 화면에 표시하는 함수
+            function renderCommentList(comments) {
+                // 기존 댓글 목록을 비움
+                commentListContainer.innerHTML = "";
+
+                // 가져온 댓글 목록을 반복하여 화면에 추가
+                comments.forEach(comment => {
+                    var commentDiv = document.createElement("div");
+                    commentDiv.innerHTML = `
+                    <div>
+                        <p>${comment.content}</p>
+                        <form action="/test/commentViewTest" method="post" object="${commentDto}">
+                            <!-- 대댓글 작성 폼 -->
+                            <div class="mb-3">
+                                <label class="form-label" for="replyContent">대댓글</label>
+                                <input class="form-control" id="replyContent" name="content" placeholder="대댓글을 입력하세요" th:field="*{replyContent}" type="textarea">
+                                <input th:name="parentId" th:value="${comment.id}" type="hidden">
+                            </div>
+                            <br>
+                            <button class="btn btn-primary" type="submit">답글 작성하기</button>
+                        </form>
+                        <!-- 대댓글 목록 -->
+                        ${comment.replies.map(reply => `<div><p>${reply.content}</p></div>`).join('')}
+                    </div>
+                `;
+
+                    commentListContainer.appendChild(commentDiv);
+                });
+            }
+
+            // 페이지 로드될 때 댓글 목록을 초기에 한번 불러옴
+            fetchCommentList();
+        });
+
         /*]]>*/
     </script>
 </div>

@@ -2,19 +2,22 @@ package com.example.ministory.controller;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.ministory.dto.CommentDto;
 import com.example.ministory.dto.PostCommentDto;
-import com.example.ministory.entity.Comment;
 import com.example.ministory.service.CommentService;
 
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -62,13 +65,24 @@ public class CommentController {
 	// 	return "redirect:/";
 	// }
 
-	@GetMapping("/view")
-	public String getCommentViewForm(Model model, Long userId, Long postId) {
-		final long TEST_USER_ID = 1L;
-		final long TEST_POST_ID = 1L;
-		List<Comment> comments = commentService.findAllComments(userId, postId);
-		model.addAttribute("comments", comments);
-		// todo: 임시 페이지입니다. 새로운 템플릿 필요.
-		return "test/commentViewTest";
+	@ApiOperation(value = "댓글 리스트 조회", notes = "댓글 조회")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "postId", required = true, dataType = "Long", paramType = "path", defaultValue = "1"),
+	})
+	@GetMapping("/view/{postId}")
+	public ResponseEntity<List<CommentDto>> getCommentViewForm(@PathVariable(name = "postId") Long postId) {
+
+		List<CommentDto> commentDtoList = commentService.findAllComments(postId);
+		return new ResponseEntity<>(commentDtoList, HttpStatus.OK);
 	}
+
+	// @GetMapping("/view")
+	// public String getCommentViewForm(Model model, Long userId, Long postId) {
+	// 	final long TEST_USER_ID = 1L;
+	// 	final long TEST_POST_ID = 1L;
+	// 	List<Comment> comments = commentService.findAllComments(userId, postId);
+	// 	model.addAttribute("comments", comments);
+	// 	// todo: 임시 페이지입니다. 새로운 템플릿 필요.
+	// 	return "test/commentViewTest";
+	// }
 }
