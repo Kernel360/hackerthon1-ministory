@@ -35,7 +35,7 @@ public class UserController {
             return "userCreateForm";
         }
         userService.saveUser(userDto);
-        return "redirect:/";
+        return "redirect:";
     }
 
     @GetMapping("/list")
