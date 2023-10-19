@@ -1,5 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{layout/defaultLayout}" lang="ko">
+<div layout:fragment="content" class="container my-3 border-bottom">
+    <form th:action="@{/post/myBlog/1}" th:object="${currentUser}" method="get">
+    </form>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,7 +13,6 @@
         body {
             display: flex;
             flex-direction: column; /* 세로 방향으로 배치 */
-            align-items: center; /* 가운데 정렬 */
         }
 
         #user-message {

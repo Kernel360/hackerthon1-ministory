@@ -1,6 +1,6 @@
 <nav th:fragment="navbarFragment" class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
   <div class="container-fluid">
-    <a class="navbar-brand leftTop" th:href="@{/mainpage}">메인으로 이동</a>
+    <a class="navbar-brand leftTop" th:href="@{/post/mainPage}">메인으로 이동</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -8,7 +8,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" th:href="@{/myblog}">내 블로그로 이동</a>
+          <a class="nav-link" th:href="@{/post/myBlog/1}">내 블로그로 이동</a>
         </li>
         <li>
           <a class="nav-link" th:href="@{/api/user/mypage}">마이 페이지</a>

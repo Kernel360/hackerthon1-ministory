@@ -67,4 +67,8 @@ public class PostService {
 		return user.getNickname();
 	}
 
+	public List<Post> findAllPost() {
+		return postRepository.findAll();
+	}
+
 }
