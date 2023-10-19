@@ -2,23 +2,84 @@
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org"
       layout:decorate="~{layout/defaultLayout}">
+<head>
+    <style>
+        a.my-page { text-decoration: none; }
+        a.my-page:link { color: olive; }
+        a.my-page:hover { color: coral; }
+    </style>
+</head>
 <div layout:fragment="content" class="container my-3 border-bottom">
     <form th:action="@{/api/user/signup}" th:object="${userEntityDto}" method="post">
 
 
     </form>
-    <h1>마이페이지</h1>
+    <h3>마이페이지</h3>
+    <div style="height: 20px"></div>
     <div class="container-fluid h-100 d-flex flex-column">
         <div class="row h-500">
-            <div class='com-md-3 col-sm-3 B'>
-                <div style="height: 300px">좋아요한 글 보기</div>
-                <div style="height: 300px">북마크한 글 보기</div>
+            <div class='col-md-2 col-sm-2 B'>
+                <div class="bg-light text-dark" style="height: 300px; font-size: large;">
+                    <div  style="text-align: center;">
+                        <a class="my-page" th:href="@{/api/like}">
+                            좋아요한 글 보기
+                        </a>
+                    </div>
+                </div>
+                <div class="bg-light text-dark" style="height: 300px; font-size: large;">
+                    <div style="text-align: center;">
+                        <a class="my-page" th:href="@{/api/scrap}">
+                            북마크한 글 보기
+                        </a>
+                    </div>
+                </div>
+                <div class="bg-light text-dark" style="height: 300px; font-size: large;">
+                    <div style="text-align: center;">
+                        <a class="my-page" th:href="@{/api/like}">
+                            내 정보 수정
+                        </a>
+                    </div>
+                </div>
             </div>
-            <div class='com-md-6 col-sm-6 text-center'>
-                <div style="height: 300px">카테고리란</div>
-                <div style="height: 300px">내 정보 수정</div>
+            <div class='col-md-8 col-sm-8 text-center'>
+                <div style="height: 300px; font-size: large;">
+                    카테고리란
+                    <form th:action="@{/api/user/mypage/category}" th:object="${categoryDto}" method="post">
+                        <div class="row-md-10 row-sm-10" style="display: flex;">
+                            <div class="col-md-10 col-sm-10">
+                                <input type="text" id="categoryTitle" name="categoryTitle" class="form-control" placeholder="카테고리명을 입력하세요." required="required"/>
+                            </div>
+                            <div class="col-md-2 col-sm-2">
+                                <button type="submit" class="btn btn-primary">등록하기</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div style="height: 50px"></div>
+                    <div>
+                        <table class="table">
+                            <thead class="table">
+                            <tr>
+                                <th>카테고리명</th>
+                                <th>삭제</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="category : ${categories}">
+                                <td th:text="${category.title}"></td>
+                                <td>
+                                    <form th:action="@{/api/user/mypage/category/delete}" th:method="POST">
+                                        <input type="hidden" name="categoryId" th:value="${category.categoryId}" />
+                                        <button type="submit" name="_method" class="btn btn-danger" value="DELETE">삭제하기</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
             </div>
-            <div class='col-sm-3'></div>
+            <div class='col-sm-2'></div>
         </div>
     </div>
 </div>

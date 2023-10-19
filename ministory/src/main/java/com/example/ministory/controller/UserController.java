@@ -16,6 +16,10 @@ import com.example.ministory.dto.UserDto;
 import com.example.ministory.entity.User;
 import com.example.ministory.service.UserService;
 
+import com.example.ministory.dto.CategoryDto;
+import com.example.ministory.entity.Category;
+import com.example.ministory.service.CategoryService;
+
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
@@ -23,6 +27,8 @@ import lombok.AllArgsConstructor;
 @RequestMapping("/api/user")
 public class UserController {
     private UserService userService;
+
+    private CategoryService categoryService;
 
     @GetMapping("/signup")
     public String getSignUp(UserDto userDto) {
@@ -46,8 +52,23 @@ public class UserController {
     }
 
     @GetMapping("/mypage")
-    public String getMyPage() {
+    public String getMyPage(Model model) {
+        List<Category> categories = categoryService.findUserCategory(1L);
+        model.addAttribute("categories", categories);
         return "mypage";
     }
 
+    @PostMapping("/mypage/category")
+    public String postCategory(CategoryDto categoryDto, Long userId) {
+        categoryDto.setTitle("test");
+        // TODO: 1번 유저가 생성한 카테고리로 우선 분류
+        categoryService.saveCategoryOnUser(categoryDto, 1L);
+        return "redirect:/api/user/mypage";
+    }
+
+    @PostMapping("/mypage/category/delete")
+    public String deleteCategoryMyPage(Long categoryId) {
+        categoryService.deleteCategory(categoryId);
+        return "redirect:/api/user/mypage";
+    }
 }
