@@ -102,13 +102,13 @@ ALTER TABLE `notify` ADD CONSTRAINT `PK_NOTIFY` PRIMARY KEY (
 
 
 INSERT INTO user
-VALUES (1, 'asd', '1999-03-03', 'imgeimgeimimgei',  'shsh@shshsh.com', '0000', 1, 'seoul');
+VALUES (1, '유저1닉네임', '1999-03-03', 'imgeimgeimimgei',  'shsh@shshsh.com', '0000', 1, 'seoul');
 INSERT INTO user
-VALUES (2, '222', '1990-03-03', 'hihihihimgeimgei',  '222@shshsh.com', '1111', 1, 'seoul');
+VALUES (2, '유저2닉네임', '1990-03-03', 'hihihihimgeimgei',  '222@shshsh.com', '1111', 1, 'seoul');
 INSERT INTO user
-VALUES (3, '333', '2000-03-03', 'hihihihimgeimgei',  '333@shshsh.com', '1111', 0, 'seoul');
+VALUES (3, '유저3닉네임', '2000-03-03', 'hihihihimgeimgei',  '333@shshsh.com', '1111', 0, 'seoul');
 INSERT INTO user
-VALUES (4, '444', '2003-03-03', 'hihihihimgeimgei',  '444@shshsh.com', '1111', 0, 'seoul');
+VALUES (4, '유저4닉네임', '2003-03-03', 'hihihihimgeimgei',  '444@shshsh.com', '1111', 0, 'seoul');
 
 # category
 INSERT INTO category
@@ -162,7 +162,11 @@ VALUES (2, 19, 4, '나는 유저4의 카테19의 글', '룰루랄라 집에 가�
 INSERT INTO post
 VALUES (3, 2, 1, '나는 수햑장의 두번째글', '룰루랄라 집에 가고 싶다', '랄', '2023-04-07 00:00:00', '2023-04-10 00:00:00', 10, 33, 333);
 INSERT INTO post
-VALUES (4, 12, 2, '나는 국어6의 첫글', '룰루랄라 집에 가고 싶다', '라', '2023-04-04 00:00:00', '2023-04-10 00:00:00', 10, 44, 444);
+VALUES (4, 12, 2, '나는 국어6의 첫 번째 글', '룰루랄라 집에 가고 싶다', '라', '2023-04-04 00:00:00', '2023-04-10 00:00:00', 10, 11, 101);
+INSERT INTO post
+VALUES (5, 13, 2, '나는 국어6의 두 번째 글', '으랏차차 집에 가고 싶다', '으', '2023-04-05 00:00:00', '2023-04-11 00:00:00', 20, 22, 202);
+INSERT INTO post
+VALUES (6, 12, 2, '나는 국어6의 세 번째 글', '으랏차라 집에 가고 싶다', '랏', '2023-04-06 00:00:00', '2023-04-12 00:00:00', 30, 33, 303);
 
 # comment
 INSERT INTO comment
@@ -183,7 +187,9 @@ VALUES (33, 3, 3);
 INSERT INTO likes
 VALUES (44, 4, 4);
 INSERT INTO likes
-VALUES (55, 2, 1);
+VALUES (55, 2, 4);
+INSERT INTO likes
+VALUES (66, 1, 4);
 
 INSERT INTO scrap
 VALUES (111, 1, 1);
@@ -197,3 +203,7 @@ INSERT INTO scrap
 VALUES (555, 2, 3);
 INSERT INTO scrap
 VALUES (666, 2, 4);
+INSERT INTO scrap
+VALUES (777, 1, 3);
+INSERT INTO scrap
+VALUES (888, 1, 4);

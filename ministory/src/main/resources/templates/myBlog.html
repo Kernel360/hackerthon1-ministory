@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column; /* 세로 방향으로 배치 */
+            align-items: center; /* 가운데 정렬 */
+        }
+
+        #user-message {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            text-align: center; /* 가운데 정렬 */
+        }
+
+        #main-content {
+            display: flex;
+            flex-direction: column; /* 세로 방향으로 배치 */
+            align-items: center; /* 가운데 정렬 */
+        }
+
+        #categories-posts-container {
+            display: flex;
+            justify-content: space-between; /* 가로 방향으로 배치 */
+            width: 100%;
+            box-sizing: border-box;
+            padding: 0 15px;
+        }
+
+        #categories, #posts {
+            width: 48%; /* 조절 가능한 비율 */
+        }
+
+        #categories div, #posts div {
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+            padding: 10px;
+        }
+    </style>
+    <title>Your Blog</title>
+</head>
+<body>
+<div id="user-message">
+    <p th:text="'Welcome, ' + ${currentUser} + ' 님의 블로그입니다.'"></p>
+</div>
+
+<div id="categories">
+    <h2>Categories</h2>
+    <div th:each="category : ${categories}">
+        <a th:href="@{'/category/' + ${category.categoryId}}" th:text="${category.title}"></a>
+    </div>
+</div>
+
+<div id="posts">
+    <h2>My Posts</h2>
+    <div th:each="post : ${posts}">
+        <a th:href="@{'/post/view/' + ${post.postId}}">
+            <h3 th:text="${post.title}"></h3>
+            <p th:text="${post.createdAt}"></p>
+            <p th:text="${post.viewCount} + ' views'"></p>
+        </a>
+    </div>
+</div>
+
+</body>
+</html>

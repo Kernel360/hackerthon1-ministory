@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{layout/defaultLayout}">
+<div layout:fragment="content" class="container my-3 border-bottom">
+    <div>
+        <h4>카테고리 생성</h4>
+    </div>
+    <div/>
+    <form th:action="@{/api/category}" th:object="${categoryDto}" method="post">
+        <!-- <div class="alert alert-danger" role="alert" th:if="${#fields.hasAnyErrors()}">
+            <div th:each="err : ${#fields.allErrors()}" th:text="${err}" />
+        </div> -->
+        <div class="mb-3">
+            <label for="categoryTitle" class="form-label">카테고리명</label>
+            <input type="text" id="categoryTitle" name="categoryTitle" class="form-control" placeholder="카테고리명을 입력하세요." required="required"/>
+        </div>
+        <button type="submit" class="btn btn-primary">등록하기</button>
+    </form>
+
+    <div>
+        <table class="table">
+            <thead class="table">
+            <tr>
+                <th>카테고리명</th>
+                <th>삭제</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="category : ${categories}">
+                <td th:text="${category.title}"></td>
+                <td>
+                    <form th:action="@{/api/category/delete}" th:method="POST">
+                        <input type="hidden" name="categoryId" th:value="${category.categoryId}" />
+                        <button type="submit" name="_method" class="btn btn-danger" value="DELETE">삭제하기</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div> <!-- /container -->
+</html>

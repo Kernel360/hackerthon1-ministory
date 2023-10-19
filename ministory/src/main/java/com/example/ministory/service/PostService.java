@@ -57,4 +57,14 @@ public class PostService {
 		return post.getPostId();
 	}
 
+	public List<Post> findUserPost(Long userId) {
+		User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException());
+		return postRepository.findAllByUser(user);
+	}
+
+	public String findUserName(Long userId) {
+		User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException());
+		return user.getNickname();
+	}
+
 }
