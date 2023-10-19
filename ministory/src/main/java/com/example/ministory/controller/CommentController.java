@@ -2,15 +2,17 @@ package com.example.ministory.controller;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.ministory.dto.CommentDto;
+import com.example.ministory.dto.PostCommentDto;
 import com.example.ministory.entity.Comment;
-import com.example.ministory.entity.Post;
 import com.example.ministory.service.CommentService;
 
 import lombok.RequiredArgsConstructor;
@@ -29,17 +31,36 @@ public class CommentController {
 	}
 
 	@PostMapping("/write")
-	public String postCommentWriteForm(Object parent, CommentDto commentDto, Long userId, Long postId) {
-		final long TEST_USER_ID = 1L;
-		final long TEST_POST_ID = 1L;
-		if (parent.getClass().equals(Post.class)) {
-			commentService.saveCommentOnPost(commentDto, userId, postId);
-		} else {
-			commentService.saveCommentOnComment(commentDto, userId, postId, ((Comment)parent).getCommentId());
+	public ResponseEntity<?> postCommentWriteForm(@RequestBody PostCommentDto postCommentDto) {
+		// final long TEST_USER_ID = 1L;
+		// final long TEST_POST_ID = 1L;
+		System.out.println("here");
+		System.out.println(postCommentDto.toString());
+		if (postCommentDto.getParentId() == null) {
+			System.out.println("post comment");
+			commentService.saveCommentOnPost(postCommentDto);
+		} else /*if (postCommentDto.getParentType().equals("comment")) */ {
+			commentService.saveCommentOnComment(postCommentDto);
 		}
-
-		return "redirect:/";
+		// else {
+		// 	throw new ConflictException("유효하지 않은 parentType 입니다.");
+		// }
+		System.out.println("fin");
+		return ResponseEntity.ok().build();
 	}
+
+	// @PostMapping("/write")
+	// public String postCommentWriteForm(Object parent, CommentDto commentDto, Long userId, Long postId) {
+	// 	final long TEST_USER_ID = 1L;
+	// 	final long TEST_POST_ID = 1L;
+	// 	if (parent.getClass().equals(Post.class)) {
+	// 		commentService.saveCommentOnPost(commentDto, userId, postId);
+	// 	} else {
+	// 		commentService.saveCommentOnComment(commentDto, userId, postId, ((Comment)parent).getCommentId());
+	// 	}
+	//
+	// 	return "redirect:/";
+	// }
 
 	@GetMapping("/view")
 	public String getCommentViewForm(Model model, Long userId, Long postId) {

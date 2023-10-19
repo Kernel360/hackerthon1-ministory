@@ -14,13 +14,12 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 public class CommentDto {
-	private Long commentId;
+	private Long parentId;
 
 	private String content;
 
 	public Comment toEntity(User user, Post post, Long parentId) {
 		return Comment.builder()
-			.commentId(commentId)
 			.user(user)
 			.post(post)
 			.content(content)
@@ -30,11 +29,10 @@ public class CommentDto {
 
 	public Comment toEntity(User user, Post post) {
 		return Comment.builder()
-			.commentId(commentId)
 			.user(user)
 			.post(post)
 			.content(content)
-			.parentId(commentId)
+			.parentId(parentId)
 			.build();
 	}
 }

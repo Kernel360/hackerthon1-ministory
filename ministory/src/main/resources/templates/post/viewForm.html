@@ -3,6 +3,33 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org">
 <head>
+    <!--    <style>-->
+    <!--        body {-->
+    <!--            display: flex;-->
+    <!--            justify-content: space-between;-->
+    <!--        }-->
+
+    <!--        #categories, #posts {-->
+    <!--            width: 10%; /* 조절 가능한 비율 */-->
+    <!--            box-sizing: border-box;-->
+    <!--            padding: 0 15px;-->
+    <!--        }-->
+
+    <!--        #categories div, #posts div {-->
+    <!--            border: 1px solid #ccc;-->
+    <!--            margin-bottom: 10px;-->
+    <!--            padding: 10px;-->
+    <!--        }-->
+
+    <!--        #posts {-->
+    <!--            width: 90%; /* 조절 가능한 비율 */-->
+    <!--        }-->
+
+    <!--        #user-message {-->
+    <!--            font-size: 1.2em;-->
+    <!--            margin-bottom: 20px;-->
+    <!--        }-->
+    <!--    </style>-->
     <style>
         /* 전체 레이아웃 스타일 */
         body {
@@ -37,10 +64,10 @@
         }
 
         /* 카테고리 바 스타일 */
-        .category-bar {
+        #category-bar {
             background-color: #f2f2f2;
             padding: 10px;
-            margin-top: 20px;
+            margin-left: 20px;
         }
 
         /* 댓글 폼 스타일 */
@@ -69,12 +96,91 @@
         <button id="likeButton">좋아요</button>
         <button id="scrapButton">스크랩</button>
     </div>
+    <div id="category-bar"></div>
     <div class="category-bar">
         <!-- 카테고리 바 내용 추가 -->
     </div>
-    <form id="comment-form">
-        <!-- 댓글 폼 내용 추가 -->
-    </form>
+    <!--    <form id="comment-form">-->
+    <!--        &lt;!&ndash; 댓글 폼 내용 추가 &ndash;&gt;-->
+    <!--    </form>-->
+    <!--    &lt;!&ndash; 기존 위치 &ndash;&gt;-->
+    <!--    <div layout:fragment="content" class="container my-3 border-bottom">-->
+    <!--        <div>-->
+    <!--            <h4></h4>-->
+    <!--        </div>-->
+    <!--        <div/>-->
+    <!--        &lt;!&ndash; 기존 위치의 form 요소 &ndash;&gt;-->
+    <!--        <form th:action="@{/test/commentViewTest}" th:object="${commentDto}" method="post">-->
+    <!--            <div class="mb-3">-->
+    <!--                <label for="content" class="form-label">댓글</label>-->
+    <!--                <input type="textarea" id="content" name="content" th:field="*{content}"-->
+    <!--                       class="form-control" placeholder="댓글을 입력하세요">-->
+    <!--            </div>-->
+    <!--            <br>-->
+    <!--            <button type="submit" class="btn btn-primary">작성하기</button>-->
+    <!--        </form>-->
+    <!--    </div> &lt;!&ndash; /container &ndash;&gt;-->
+
+    <!-- 새로운 위치 -->
+    <!--    <div id="comment-form">-->
+    <!--        <form id="comment">-->
+    <!--            &lt;!&ndash; 댓글 폼 내용 추가 &ndash;&gt;-->
+    <!--            &lt;!&ndash; 여기에 위의 form 요소 내용을 복사하여 붙여넣기 &ndash;&gt;-->
+    <!--            &lt;!&ndash; th: 속성은 Thymeleaf 템플릿 엔진에서 사용하는 것이므로 웹 페이지에 렌더링할 때는 제외 &ndash;&gt;-->
+    <!--            <form action="/test/commentViewTest" method="post" object="${commentDto}">-->
+    <!--                <div class="mb-3">-->
+    <!--                    <label class="form-label" for="content">댓글</label>-->
+    <!--                    <input class="form-control" id="content" name="content" placeholder="댓글을 입력하세요"-->
+    <!--                           th:field="*{content}" type="textarea">-->
+    <!--                </div>-->
+    <!--                <br>-->
+    <!--                <button class="btn btn-primary" type="submit">작성하기</button>-->
+    <!--            </form>-->
+    <!--        </form>-->
+    <!--    </div>-->
+    <!-- 댓글 작성 폼 -->
+    <div id="comment-form">
+        <!--        <form action="/test/commentViewTest" id="comment" method="post" object="${commentDto}">-->
+        <div class="mb-3">
+            <label class="form-label" for="content">댓글</label>
+            <input class="form-control" id="content" name="content" placeholder="댓글을 입력하세요"
+                   th:field="*{content}" type="textarea">
+        </div>
+        <br>
+        <button class="btn btn-primary" id="postCommentOnPost" type="submit">작성하기</button>
+        <!--        </form>-->
+    </div>
+
+    <!-- 댓글 목록 -->
+    <div id="comment-list">
+        <!-- 각 댓글에 대한 반복문 -->
+        <div th:each="comment : ${comments}">
+            <div>
+                <!-- 댓글 내용 표시 -->
+                <p th:text="${comment.content}"></p>
+
+                <!-- 대댓글 작성 폼 -->
+                <form action="/test/commentViewTest" method="post" object="${commentDto}">
+                    <div class="mb-3">
+                        <label class="form-label" for="replyContent">대댓글</label>
+                        <input class="form-control" id="replyContent" name="content" placeholder="대댓글을 입력하세요"
+                               th:field="*{replyContent}" type="textarea">
+                        <!-- 부모 댓글의 ID를 숨겨 전달 -->
+                        <input th:name="parentId" th:value="${comment.id}" type="hidden">
+                    </div>
+                    <br>
+                    <button class="btn btn-primary" type="submit">답글 작성하기</button>
+                </form>
+
+                <!-- 대댓글 목록 -->
+                <div th:each="reply : ${comment.replies}">
+                    <p th:text="${reply.content}"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <script th:inline="javascript">
         /*<![CDATA[*/
         // 페이지 로드 시 실행되는 코드
@@ -138,7 +244,6 @@
                     // 서버에서 받은 응답 데이터 처리
                     var isRefresh = true;
                     location.href = `http://localhost:8080/post/view/${postId}?isRefresh=${isRefresh}`;
-                    // location.href = "http://localhost:8080/post/view/refresh/" + postId;
                 })
                 .catch(error => {
                     // 오류 처리
@@ -178,6 +283,36 @@
                     // 오류 처리
                     console.error('Error:', error);
                 });
+        });
+
+        document.getElementById("postCommentOnPost").addEventListener("click", function () {
+            // 댓글 작성하기 버튼
+            var content = document.getElementById("content").value;
+            console.log(content);
+            var postId = [[${post.postId}]];
+            var userId = 1;
+
+            var postCommentDto = {
+                userId: userId,
+                postId: postId,
+                parentId: null,
+                parentType: "POST",
+                content: content,
+            };
+
+            fetch(`http://localhost:8080/api/comment/write`, {
+                method: 'POST', // POST 요청
+                headers: {
+                    'Content-Type': 'application/json', // JSON 형태의 데이터 전송
+                },
+                body: JSON.stringify(postCommentDto), // 좋아요 데이터를 JSON 형태로 변환하여 전송
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                })
+
         });
         /*]]>*/
     </script>
