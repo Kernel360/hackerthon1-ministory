@@ -77,44 +77,6 @@
     <div class="category-bar">
         <!-- 카테고리 바 내용 추가 -->
     </div>
-    <!--    <form id="comment-form">-->
-    <!--        &lt;!&ndash; 댓글 폼 내용 추가 &ndash;&gt;-->
-    <!--    </form>-->
-    <!--    &lt;!&ndash; 기존 위치 &ndash;&gt;-->
-    <!--    <div layout:fragment="content" class="container my-3 border-bottom">-->
-    <!--        <div>-->
-    <!--            <h4></h4>-->
-    <!--        </div>-->
-    <!--        <div/>-->
-    <!--        &lt;!&ndash; 기존 위치의 form 요소 &ndash;&gt;-->
-    <!--        <form th:action="@{/test/commentViewTest}" th:object="${commentDto}" method="post">-->
-    <!--            <div class="mb-3">-->
-    <!--                <label for="content" class="form-label">댓글</label>-->
-    <!--                <input type="textarea" id="content" name="content" th:field="*{content}"-->
-    <!--                       class="form-control" placeholder="댓글을 입력하세요">-->
-    <!--            </div>-->
-    <!--            <br>-->
-    <!--            <button type="submit" class="btn btn-primary">작성하기</button>-->
-    <!--        </form>-->
-    <!--    </div> &lt;!&ndash; /container &ndash;&gt;-->
-
-    <!-- 새로운 위치 -->
-    <!--    <div id="comment-form">-->
-    <!--        <form id="comment">-->
-    <!--            &lt;!&ndash; 댓글 폼 내용 추가 &ndash;&gt;-->
-    <!--            &lt;!&ndash; 여기에 위의 form 요소 내용을 복사하여 붙여넣기 &ndash;&gt;-->
-    <!--            &lt;!&ndash; th: 속성은 Thymeleaf 템플릿 엔진에서 사용하는 것이므로 웹 페이지에 렌더링할 때는 제외 &ndash;&gt;-->
-    <!--            <form action="/test/commentViewTest" method="post" object="${commentDto}">-->
-    <!--                <div class="mb-3">-->
-    <!--                    <label class="form-label" for="content">댓글</label>-->
-    <!--                    <input class="form-control" id="content" name="content" placeholder="댓글을 입력하세요"-->
-    <!--                           th:field="*{content}" type="textarea">-->
-    <!--                </div>-->
-    <!--                <br>-->
-    <!--                <button class="btn btn-primary" type="submit">작성하기</button>-->
-    <!--            </form>-->
-    <!--        </form>-->
-    <!--    </div>-->
     <!-- 댓글 작성 폼 -->
     <div id="comment-form">
         <!--        <form action="/test/commentViewTest" id="comment" method="post" object="${commentDto}">-->
@@ -124,7 +86,7 @@
                    th:field="*{content}" type="textarea">
         </div>
         <br>
-        <button class="btn btn-primary" id="postCommentOnPost" type="submit">작성하기</button>
+        <button id="postCommentOnPost" type="submit">작성하기</button>
         <!--        </form>-->
     </div>
 
@@ -134,43 +96,23 @@
         <div th:each="comment : ${commentDto}">
             <div>
                 <p>${comment.content}</p>
-                <form action="/test/commentViewTest" method="post" object="${commentDto}">
-                    <!-- 대댓글 작성 폼 -->
-                    <div class="mb-3">
-                        <label class="form-label" for="replyContent">대댓글</label>
-                        <input class="form-control" id="replyContent" name="content" placeholder="대댓글을 입력하세요"
-                               th:field="*{replyContent}" type="textarea">
-                        <input th:name="parentId" th:value="${comment.id}" type="hidden">
-                    </div>
-                    <br>
-                    <button class="btn btn-primary" type="submit">작성하기</button>
-                </form>
+                <p>작성자: ${comment.nickname}</p>
+                <p>생성일: ${comment.createdAt}</p>
+                <!--                <form action="/test/commentViewTest" method="post" object="${commentDto}">-->
+                <!-- 대댓글 작성 폼 -->
+                <div class="mb-3">
+                    <label class="form-label" for="replyContent">대댓글</label>
+                    <input class="form-control" id="replyContent" name="content" placeholder="대댓글을 입력하세요"
+                           th:field="*{replyContent}" type="textarea">
+                    <input id="parentId" th:name="parentId" th:value="${comment.commentId}" type="hidden">
+                </div>
+                <br>
+                <button id="postCommentOnComment" type="submit">작성하기</button>
+                <!--                </form>-->
                 <!-- 대댓글 목록 -->
                 ${comment.replies ? renderCommentList(comment.replies) : ''}
             </div>
 
-            <!--            <div>-->
-            <!--                &lt;!&ndash; 댓글 내용 표시 &ndash;&gt;-->
-            <!--                <p th:text="${comment.content}"></p>-->
-
-            <!--                &lt;!&ndash; 대댓글 작성 폼 &ndash;&gt;-->
-            <!--                <form action="/test/commentViewTest" method="post" object="${commentDto}">-->
-            <!--                    <div class="mb-3">-->
-            <!--                        <label class="form-label" for="replyContent">대댓글</label>-->
-            <!--                        <input class="form-control" id="replyContent" name="content" placeholder="대댓글을 입력하세요"-->
-            <!--                               th:field="*{replyContent}" type="textarea">-->
-            <!--                        &lt;!&ndash; 부모 댓글의 ID를 숨겨 전달 &ndash;&gt;-->
-            <!--                        <input th:name="parentId" th:value="${comment.id}" type="hidden">-->
-            <!--                    </div>-->
-            <!--                    <br>-->
-            <!--                    <button class="btn btn-primary" type="submit">답글 작성하기</button>-->
-            <!--                </form>-->
-
-            <!--                &lt;!&ndash; 대댓글 목록 &ndash;&gt;-->
-            <!--                <div th:each="reply : ${comment.replies}">-->
-            <!--                    <p th:text="${reply.content}"></p>-->
-            <!--                </div>-->
-            <!--            </div>-->
         </div>
     </div>
 
@@ -314,6 +256,57 @@
 
         });
 
+        // // 버튼에 대한 이벤트 리스너 등록
+        // var postCommentOnCommentButton = commentDiv.querySelector("#postCommentOnComment");
+        // if (postCommentOnCommentButton) {
+        //     postCommentOnCommentButton.addEventListener("click", function () {
+        //         // 클릭 이벤트 핸들러 내용
+        //         var content = commentDiv.querySelector("#replyContent").value;
+        //         var parentId = commentDiv.querySelector("#parentId").value;
+        //         console.log(content, parentId);
+        //         // 여기에 fetch 등의 로직을 추가하세요.
+        //     });
+        // } else {
+        //     console.error("postCommentOnCommentButton not found");
+        // }
+        //
+        // document.getElementById("postCommentOnComment").addEventListener("click", function () {
+        //     // 댓글 작성하기 버튼
+        //     var content = document.getElementById("replyContent").value;
+        //     var parentId = document.getElementById("parentId").value;
+        //     console.log(content);
+        //     var postId = [[${post.postId}]];
+        //     var userId = 1;
+        //
+        //     var postCommentDto = {
+        //         userId: userId,
+        //         postId: postId,
+        //         parentId: parentId,
+        //         parentType: "COMMENT",
+        //         content: content,
+        //     };
+        //
+        //     fetch(`http://localhost:8080/api/comment/write`, {
+        //         method: 'POST', // POST 요청
+        //         headers: {
+        //             'Content-Type': 'application/json', // JSON 형태의 데이터 전송
+        //         },
+        //         body: JSON.stringify(postCommentDto), // 좋아요 데이터를 JSON 형태로 변환하여 전송
+        //     })
+        //         .then(response => {
+        //             if (!response.ok) {
+        //                 throw new Error('Network response was not ok');
+        //             }
+        //             location.reload();
+        //         })
+        //         .catch(error => {
+        //             // 오류 처리
+        //             console.error('Error:', error);
+        //         });
+        //
+        // });
+
+
         // 페이지 로드 후 실행되는 함수
         document.addEventListener("DOMContentLoaded", function () {
             // 댓글 목록을 표시할 영역의 요소를 찾음
@@ -349,22 +342,37 @@
                 comments.forEach(comment => {
                     var commentDiv = document.createElement("div");
                     commentDiv.innerHTML = `
-        <div>
+            <div>
             <p>${comment.content}</p>
-            <form action="/test/commentViewTest" method="post" object="${commentDto}">
+                            <p>작성자: ${comment.nickname}</p>
+                <p>생성일: ${comment.createdAt}</p>
+<!--            <form action="/test/commentViewTest" method="post" object="${commentDto}">-->
                 <!-- 대댓글 작성 폼 -->
                 <div class="mb-3">
                     <label class="form-label" for="replyContent">대댓글</label>
                     <input class="form-control" id="replyContent" name="content" placeholder="대댓글을 입력하세요" th:field="*{replyContent}" type="textarea">
-                    <input th:name="parentId" th:value="${comment.id}" type="hidden">
+                    <input id="parentId" th:name="parentId" th:value="${comment.parentId}" type="hidden">
                 </div>
                 <br>
-                <button class="btn btn-primary" type="submit">작성하기</button>
-            </form>
+                <button id="postCommentOnPost" type="submit">작성하기</button>
+<!--            </form>-->
             <!-- 대댓글 목록 -->
             ${comment.replies ? renderCommentList(comment.replies) : ''}
         </div>
     `;
+                    // // 버튼에 대한 이벤트 리스너 등록
+                    // var postCommentOnCommentButton = commentDiv.querySelector("#postCommentOnComment");
+                    // if (postCommentOnCommentButton) {
+                    //     postCommentOnCommentButton.addEventListener("click", function () {
+                    //         // 클릭 이벤트 핸들러 내용
+                    //         var content = commentDiv.querySelector("#replyContent").value;
+                    //         var parentId = commentDiv.querySelector("#parentId").value;
+                    //         console.log(content, parentId);
+                    //         // 여기에 fetch 등의 로직을 추가하세요.
+                    //     });
+                    // } else {
+                    //     console.error("postCommentOnCommentButton not found");
+                    // }
                     commentListContainer.appendChild(commentDiv);
                 });
             }
