@@ -18,36 +18,16 @@ import com.example.ministory.service.UserService;
 
 import lombok.AllArgsConstructor;
 
+/*
+
 @AllArgsConstructor
 @Controller
-@RequestMapping("/api/user")
-public class UserController {
-    private UserService userService;
-
-    @GetMapping("/signup")
-    public String getSignUp(UserDto userDto) {
-        return "userCreateForm";
-    }
-
-    @PostMapping("/signup")
-    public String postSignUp(@Valid UserDto userDto, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "userCreateForm";
-        }
-        userService.saveUser(userDto);
-        return "redirect:mypage";
-    }
-
-    @GetMapping("/list")
-    public String getUserList(Model model) {
-        List<User> users = userService.findUsers();
-        model.addAttribute("users", users);
-        return "userlist";
-    }
-
+@RequestMapping("api")
+public class MyPageController {
     @GetMapping("/mypage")
     public String getMyPage() {
         return "mypage";
     }
-
 }
+
+ */

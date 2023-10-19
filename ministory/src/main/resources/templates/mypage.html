@@ -4,5 +4,22 @@
       layout:decorate="~{layout/defaultLayout}">
 <div layout:fragment="content" class="container my-3 border-bottom">
     <form th:action="@{/api/user/signup}" th:object="${userEntityDto}" method="post">
+
+
     </form>
+    <h1>마이페이지</h1>
+    <div class="container-fluid h-100 d-flex flex-column">
+        <div class="row h-500">
+            <div class='com-md-3 col-sm-3 B'>
+                <div style="height: 300px">좋아요한 글 보기</div>
+                <div style="height: 300px">북마크한 글 보기</div>
+            </div>
+            <div class='com-md-6 col-sm-6 text-center'>
+                <div style="height: 300px">카테고리란</div>
+                <div style="height: 300px">내 정보 수정</div>
+            </div>
+            <div class='col-sm-3'></div>
+        </div>
+    </div>
 </div>
+</html>
