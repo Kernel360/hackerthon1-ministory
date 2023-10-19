@@ -305,7 +305,12 @@
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
                     }
+                    location.reload();
                 })
+                .catch(error => {
+                    // 오류 처리
+                    console.error('Error:', error);
+                });
 
         });
 
