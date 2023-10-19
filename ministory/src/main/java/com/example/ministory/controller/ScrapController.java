@@ -5,17 +5,14 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import com.example.ministory.dto.*;
+import com.example.ministory.entity.User;
+import com.example.ministory.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import com.example.ministory.dto.DeleteManyScrapDto;
-import com.example.ministory.dto.ScrapDto;
-import com.example.ministory.dto.ScrapPostDto;
-import com.example.ministory.dto.UserIdDto;
 import com.example.ministory.service.ScrapService;
 
 import io.swagger.annotations.ApiOperation;
@@ -55,11 +52,11 @@ public class ScrapController {
 	}
 
 	@ApiOperation(value = "유저에 따른 ScrapPostDTO 조회")
-	@PostMapping("/myScraps")
-	public String getAllScrap(@RequestBody @Valid UserIdDto request, Model model) {
+	@GetMapping("/myScraps")
+	public String getAllScrap(Model model) {
+		UserIdDto request = new UserIdDto();
 		List<ScrapPostDto> list = new ArrayList<>(scrapService.getAllScrap(request));
 		model.addAttribute("scrapPostDto", list);
 		return "myScraps";
 	}
-
 }
