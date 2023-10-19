@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,8 +52,9 @@ public class LikeController {
 	}
 
 	@ApiOperation(value = "유저에 따른 LikePostDTO 조회")
-	@PostMapping("/myLikes")
-	public String getAllLikes(@RequestBody @Valid UserIdDto request, Model model) {
+	@GetMapping("/myLikes")
+	public String getAllLikes(Model model) {
+		UserIdDto request = new UserIdDto();
 		List<LikePostDto> list = new ArrayList<>(likeService.getAllLikes(request));
 		model.addAttribute("likePostDto", list);
 		return "myLikes";

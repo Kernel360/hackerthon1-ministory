@@ -6,12 +6,12 @@ spring:
       database: mysql
       dialect: org.hibernate.dialect.MySQL8Dialect
     hibernate:
-      ddl-auto: create
+      ddl-auto: create-drop
   datasource:
     url: jdbc:mysql://localhost:3306/mini_story?useSSL=false&useUnicode=true&allowPublicKeyRetrieval=true
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: root1234!
+    password: Kmhmh103099~
   thymeleaf:
     prefix: classpath:templates/
     check-template-location: true
