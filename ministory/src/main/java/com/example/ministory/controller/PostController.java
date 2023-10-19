@@ -7,7 +7,9 @@ import java.util.Map;
 
 import com.example.ministory.dto.LikePostDto;
 import com.example.ministory.dto.PostDto;
+import com.example.ministory.dto.UserDto;
 import com.example.ministory.dto.UserIdDto;
+import com.example.ministory.entity.User;
 import com.example.ministory.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,12 +89,13 @@ public class PostController {
 		return postId;
 	}
 
-	@ApiOperation(value = "내가 작성한 Post 조회")
+	@ApiOperation(value = "내 블로그(Category/Post) 조회")
 	@PostMapping("/myBlog")
 	public String getPost(@RequestBody @Valid UserIdDto request, Model model) {
 		List<Post> list = new ArrayList<>(postService.getPostByUserId(request));
+		List<Category> list2 = new ArrayList<>(postService.findUserCategory(request.getUserId()));
 		model.addAttribute("posts", list);
-		System.out.println(list.get(0).getHtmlContent());
+		model.addAttribute("categories", list2);
 		return "myBlog";
 	}
 

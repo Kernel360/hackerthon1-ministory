@@ -44,7 +44,7 @@
 <div id="categories">
     <h2>Categories</h2>
     <div th:each="category : ${categories}">
-        <a th:href="@{'/category/' + ${category.id}}" th:text="${category.name}"></a>
+        <a th:href="@{'/category/' + ${category.categoryId}}" th:text="${category.title}"></a>
     </div>
 </div>
 
