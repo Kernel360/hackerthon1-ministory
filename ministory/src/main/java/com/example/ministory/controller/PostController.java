@@ -89,14 +89,26 @@ public class PostController {
 		return postId;
 	}
 
-	@ApiOperation(value = "내 블로그(Category/Post) 조회")
-	@PostMapping("/myBlog")
-	public String getPost(@RequestBody @Valid UserIdDto request, Model model) {
-		List<Post> list = new ArrayList<>(postService.getPostByUserId(request));
-		List<Category> list2 = new ArrayList<>(postService.findUserCategory(request.getUserId()));
-		model.addAttribute("posts", list);
-		model.addAttribute("categories", list2);
-		return "myBlog";
-	}
+//	@ApiOperation(value = "내 블로그(Category/Post) 조회")
+//	@PostMapping("/myBlog")
+//	public String getPost(@RequestBody @Valid UserIdDto request, Model model) {
+//		List<Post> list = new ArrayList<>(postService.getPostByUserId(request));
+//		List<Category> list2 = new ArrayList<>(postService.findUserCategory(request.getUserId()));
+//		model.addAttribute("posts", list);
+//		model.addAttribute("categories", list2);
+//		return "myBlog";
+//	}
 
+	@ApiOperation(value = "내 블로그(Category/Post) 조회")
+	@GetMapping("/myBlog/{userId}")
+	public ModelAndView viewPostForm(@PathVariable(name = "userId") Long userId) {
+		ModelAndView mv = new ModelAndView("myBlog");
+		List<Post> list = new ArrayList<>(postService.findUserPost(userId));
+		List<Category> list2 = new ArrayList<>(postService.findUserCategory(userId));
+		String userName = new String(postService.findUserName(userId));
+		mv.addObject("posts", list);
+		mv.addObject("categories", list2);
+		mv.addObject("currentUser", userName);
+		return mv;
+	}
 }
