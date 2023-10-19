@@ -101,4 +101,13 @@ public class PostController {
 		mv.addObject("currentUser", userName);
 		return mv;
 	}
+
+	@ApiOperation(value = "메인페이지 조회")
+	@GetMapping("/mainPage")
+	public ModelAndView viewPostForm() {
+		ModelAndView mv = new ModelAndView("mainPage");
+		List<Post> list = new ArrayList<>(postService.findAllPost());
+		mv.addObject("posts", list);
+		return mv;
+	}
 }
