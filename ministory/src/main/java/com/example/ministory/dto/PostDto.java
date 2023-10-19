@@ -4,9 +4,9 @@ import com.example.ministory.entity.Post;
 import com.example.ministory.entity.Category;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 
