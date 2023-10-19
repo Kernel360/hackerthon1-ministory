@@ -28,7 +28,8 @@ public class CategoryController {
     // TODO: 유저의 카테고리를 전부 받아서 리스팅하는 함수
     @GetMapping("")
     public String getCategoryList(Model model, Long userId) {
-        // User user = /* Use userId to retrieve the user */;
+        List<Category> categories = categoryService.findUserCategory(1L);
+        model.addAttribute("categories", categories);
         return "category/categoryList";
     }
 
@@ -38,7 +39,7 @@ public class CategoryController {
         categoryDto.setTitle("test");
         // TODO: 1번 유저가 생성한 카테고리로 우선 분류
         categoryService.saveCategoryOnUser(categoryDto, 1L);
-        return "category/categoryList";
+        return "redirect:category";
     }
 
     /*
@@ -51,13 +52,9 @@ public class CategoryController {
     }
     */
 
-    // TODO: 유저의 카테고리와 하위 게시글을 삭제하는 함수
-
-    /*
-    @GetMapping("/")
-    public String getSignUp(CategoryDto categoryDto, Long userId) {
-        return "category/categoryList";
+    @PostMapping("/delete")
+    public String deleteCategory(Long categoryId) {
+        categoryService.deleteCategory(categoryId);
+        return "redirect:/api/category";
     }
-    */
-
 }

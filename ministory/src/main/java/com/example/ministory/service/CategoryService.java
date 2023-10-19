@@ -4,11 +4,13 @@ import com.example.ministory.dto.CategoryDto;
 import com.example.ministory.entity.User;
 import com.example.ministory.entity.Category;
 
+import com.example.ministory.exception.NotFoundException;
 import com.example.ministory.repository.UserRepository;
 import com.example.ministory.repository.CategoryRepository;
 
 
 import lombok.AllArgsConstructor;
+import org.aspectj.weaver.ast.Not;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,13 +27,13 @@ public class CategoryService {
 
     @Transactional
     public List<Category> findUserCategory(Long userId) {
-        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException());
+        User user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException("해당하는 User가 없습니다."));
         return categoryRepository.findCategoriesByUser(user);
     }
 
     @Transactional
     public void saveCategoryOnUser(CategoryDto categoryDto, Long userId) {
-        User user = userRepository.findById(userId).orElseThrow(()-> new RuntimeException());
+        User user = userRepository.findById(userId).orElseThrow(()-> new NotFoundException("해당하는 User가 없습니다."));
         System.out.println(categoryDto.getTitle());
         Category category = categoryDto.toEntity(user);
 
@@ -40,7 +42,7 @@ public class CategoryService {
 
     @Transactional
     public void updateCategory(Long categoryId, String title) {
-        Category category = categoryRepository.findById(categoryId).orElseThrow(() -> new RuntimeException());
+        Category category = categoryRepository.findById(categoryId).orElseThrow(() -> new NotFoundException("해당하는 Category가 없습니다."));
         category.setTitle(title);
     }
 
