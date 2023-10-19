@@ -10,4 +10,8 @@ import com.example.ministory.entity.User;
 
 public interface CommentRepository extends JpaRepository<Comment, Long> {
 	List<Comment> findCommentsByUserAndPost(User user, Post post);
+
+	// List<Comment> findAllByPostAndOrderByCreatedAtDesc(Post post);
+
+	List<Comment> findAllByPost(Post post);
 }

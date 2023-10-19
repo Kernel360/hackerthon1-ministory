@@ -37,14 +37,18 @@
         }
 
         /* 카테고리 바 스타일 */
-        .category-bar {
+        #category-bar {
             background-color: #f2f2f2;
             padding: 10px;
-            margin-top: 20px;
+            margin-left: 20px;
         }
 
         /* 댓글 폼 스타일 */
         #comment-form {
+            margin-top: 20px;
+        }
+
+        #comment-list {
             margin-top: 20px;
         }
 
@@ -69,12 +73,50 @@
         <button id="likeButton">좋아요</button>
         <button id="scrapButton">스크랩</button>
     </div>
+    <div id="category-bar"></div>
     <div class="category-bar">
         <!-- 카테고리 바 내용 추가 -->
     </div>
-    <form id="comment-form">
-        <!-- 댓글 폼 내용 추가 -->
-    </form>
+    <!-- 댓글 작성 폼 -->
+    <div id="comment-form">
+        <!--        <form action="/test/commentViewTest" id="comment" method="post" object="${commentDto}">-->
+        <div class="mb-3">
+            <label class="form-label" for="content">댓글</label>
+            <input class="form-control" id="content" name="content" placeholder="댓글을 입력하세요"
+                   th:field="*{content}" type="textarea">
+        </div>
+        <br>
+        <button id="postCommentOnPost" type="submit">작성하기</button>
+        <!--        </form>-->
+    </div>
+
+    <!-- 댓글 목록 -->
+    <div id="comment-list">
+        <!-- 각 댓글에 대한 반복문 -->
+        <div th:each="comment : ${commentDto}">
+            <div>
+                <p>${comment.content}</p>
+                <p>작성자: ${comment.nickname}</p>
+                <p>생성일: ${comment.createdAt}</p>
+                <!--                <form action="/test/commentViewTest" method="post" object="${commentDto}">-->
+                <!-- 대댓글 작성 폼 -->
+                <div class="mb-3">
+                    <label class="form-label" for="replyContent">대댓글</label>
+                    <input class="form-control" id="replyContent" name="content" placeholder="대댓글을 입력하세요"
+                           th:field="*{replyContent}" type="textarea">
+                    <input id="parentId" th:name="parentId" th:value="${comment.commentId}" type="hidden">
+                </div>
+                <br>
+                <button id="postCommentOnComment" type="submit">작성하기</button>
+                <!--                </form>-->
+                <!-- 대댓글 목록 -->
+                ${comment.replies ? renderCommentList(comment.replies) : ''}
+            </div>
+
+        </div>
+    </div>
+
+
     <script th:inline="javascript">
         /*<![CDATA[*/
         // 페이지 로드 시 실행되는 코드
@@ -138,7 +180,6 @@
                     // 서버에서 받은 응답 데이터 처리
                     var isRefresh = true;
                     location.href = `http://localhost:8080/post/view/${postId}?isRefresh=${isRefresh}`;
-                    // location.href = "http://localhost:8080/post/view/refresh/" + postId;
                 })
                 .catch(error => {
                     // 오류 처리
@@ -179,12 +220,169 @@
                     console.error('Error:', error);
                 });
         });
+
+        document.getElementById("postCommentOnPost").addEventListener("click", function () {
+            // 댓글 작성하기 버튼
+            var content = document.getElementById("content").value;
+            console.log(content);
+            var postId = [[${post.postId}]];
+            var userId = 1;
+
+            var postCommentDto = {
+                userId: userId,
+                postId: postId,
+                parentId: null,
+                parentType: "POST",
+                content: content,
+            };
+
+            fetch(`http://localhost:8080/api/comment/write`, {
+                method: 'POST', // POST 요청
+                headers: {
+                    'Content-Type': 'application/json', // JSON 형태의 데이터 전송
+                },
+                body: JSON.stringify(postCommentDto), // 좋아요 데이터를 JSON 형태로 변환하여 전송
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    location.reload();
+                })
+                .catch(error => {
+                    // 오류 처리
+                    console.error('Error:', error);
+                });
+
+        });
+
+        // // 버튼에 대한 이벤트 리스너 등록
+        // var postCommentOnCommentButton = commentDiv.querySelector("#postCommentOnComment");
+        // if (postCommentOnCommentButton) {
+        //     postCommentOnCommentButton.addEventListener("click", function () {
+        //         // 클릭 이벤트 핸들러 내용
+        //         var content = commentDiv.querySelector("#replyContent").value;
+        //         var parentId = commentDiv.querySelector("#parentId").value;
+        //         console.log(content, parentId);
+        //         // 여기에 fetch 등의 로직을 추가하세요.
+        //     });
+        // } else {
+        //     console.error("postCommentOnCommentButton not found");
+        // }
+        //
+        // document.getElementById("postCommentOnComment").addEventListener("click", function () {
+        //     // 댓글 작성하기 버튼
+        //     var content = document.getElementById("replyContent").value;
+        //     var parentId = document.getElementById("parentId").value;
+        //     console.log(content);
+        //     var postId = [[${post.postId}]];
+        //     var userId = 1;
+        //
+        //     var postCommentDto = {
+        //         userId: userId,
+        //         postId: postId,
+        //         parentId: parentId,
+        //         parentType: "COMMENT",
+        //         content: content,
+        //     };
+        //
+        //     fetch(`http://localhost:8080/api/comment/write`, {
+        //         method: 'POST', // POST 요청
+        //         headers: {
+        //             'Content-Type': 'application/json', // JSON 형태의 데이터 전송
+        //         },
+        //         body: JSON.stringify(postCommentDto), // 좋아요 데이터를 JSON 형태로 변환하여 전송
+        //     })
+        //         .then(response => {
+        //             if (!response.ok) {
+        //                 throw new Error('Network response was not ok');
+        //             }
+        //             location.reload();
+        //         })
+        //         .catch(error => {
+        //             // 오류 처리
+        //             console.error('Error:', error);
+        //         });
+        //
+        // });
+
+
+        // 페이지 로드 후 실행되는 함수
+        document.addEventListener("DOMContentLoaded", function () {
+            // 댓글 목록을 표시할 영역의 요소를 찾음
+            var commentListContainer = document.getElementById("comment-list");
+            var postId = [[${post.postId}]];
+
+            var commentDto = {
+                commentId: null,
+                parentId: null,
+                nickname: "",
+                content: "",
+                createdAt: null,
+                postId: null
+            };
+
+            // 댓글 목록을 가져오는 함수
+            function fetchCommentList() {
+                // API 요청
+                fetch(`http://localhost:8080/api/comment/view/` + postId)
+                    .then(response => response.json())
+                    .then(data => {
+                        // 댓글 목록을 가져온 후 화면에 표시
+                        console.log(data);
+                        renderCommentList(data);
+                    })
+                    .catch(error => {
+                        console.error("댓글 목록을 가져오는 중 오류 발생:", error);
+                    });
+            }
+
+            // 댓글 목록을 화면에 표시하는 함수
+            function renderCommentList(comments) {
+                comments.forEach(comment => {
+                    var commentDiv = document.createElement("div");
+                    commentDiv.innerHTML = `
+            <div>
+            <p>${comment.content}</p>
+                            <p>작성자: ${comment.nickname}</p>
+                <p>생성일: ${comment.createdAt}</p>
+<!--            <form action="/test/commentViewTest" method="post" object="${commentDto}">-->
+                <!-- 대댓글 작성 폼 -->
+                <div class="mb-3">
+                    <label class="form-label" for="replyContent">대댓글</label>
+                    <input class="form-control" id="replyContent" name="content" placeholder="대댓글을 입력하세요" th:field="*{replyContent}" type="textarea">
+                    <input id="parentId" th:name="parentId" th:value="${comment.parentId}" type="hidden">
+                </div>
+                <br>
+                <button id="postCommentOnPost" type="submit">작성하기</button>
+<!--            </form>-->
+            <!-- 대댓글 목록 -->
+            ${comment.replies ? renderCommentList(comment.replies) : ''}
+        </div>
+    `;
+                    // // 버튼에 대한 이벤트 리스너 등록
+                    // var postCommentOnCommentButton = commentDiv.querySelector("#postCommentOnComment");
+                    // if (postCommentOnCommentButton) {
+                    //     postCommentOnCommentButton.addEventListener("click", function () {
+                    //         // 클릭 이벤트 핸들러 내용
+                    //         var content = commentDiv.querySelector("#replyContent").value;
+                    //         var parentId = commentDiv.querySelector("#parentId").value;
+                    //         console.log(content, parentId);
+                    //         // 여기에 fetch 등의 로직을 추가하세요.
+                    //     });
+                    // } else {
+                    //     console.error("postCommentOnCommentButton not found");
+                    // }
+                    commentListContainer.appendChild(commentDiv);
+                });
+            }
+
+            // 페이지 로드될 때 댓글 목록을 초기에 한번 불러옴
+            fetchCommentList();
+        });
+
         /*]]>*/
     </script>
 </div>
 </body>
 </html>
-
-
-
-
