@@ -62,13 +62,13 @@ http://localhost:8080/swagger-ui/index.html
 ![스크린샷 2023-10-17 오후 5 05 39](https://github.com/Kernel360/hackerthon1-ministory/assets/101683784/da11b932-6d38-41f1-9e0d-dca3b3253088)
 ![스크린샷 2023-10-17 오후 5 05 28](https://github.com/Kernel360/hackerthon1-ministory/assets/101683784/480d8410-fb11-43ea-b4f3-30bca5bd4ecb)
 
-| 메인 페이지                                                                                                        | 내 블로그 페이지                                                                                                   |
-|--------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|
-| ![image](https://github.com/Kernel360/hackerthon1-ministory/assets/147565215/bb9af6a2-6a68-4330-a580-f6552923eeb4) | ![image](https://github.com/Kernel360/hackerthon1-ministory/assets/147565215/7976d3e8-331c-419f-9b94-6c5a3742d2dd) |
-| http://localhost:8080/post/mainPage                                                                                | http://localhost:8080/post/myBlog/1                                                                                |
-| 마이 페이지                                                                                                        | 회원가입 페이지                                                                                                    |
-| ![image](https://github.com/Kernel360/hackerthon1-ministory/assets/147565215/8df8866c-cd8d-44ec-befb-514652509ea5) | ![image](https://github.com/Kernel360/hackerthon1-ministory/assets/147565215/116396c8-424f-45cf-96cc-fdfaaa79e6e3) |
-| http://localhost:8080/api/user/mypage                                                                              | http://localhost:8080/api/user/signup                                                                              |
-|                                                                                                                    |                                                                                                                    |
-|                                                                                                                    |                                                                                                                    |
 
+|                                                     메인 페이지                                                    |                                                  내 블로그 페이지                                                  |
+|:------------------------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------------------------------------------------------:|
+| ![image](https://github.com/Kernel360/hackerthon1-ministory/assets/147565215/bb9af6a2-6a68-4330-a580-f6552923eeb4) | ![image](https://github.com/Kernel360/hackerthon1-ministory/assets/147565215/7976d3e8-331c-419f-9b94-6c5a3742d2dd) |
+|                                         http://localhost:8080/post/mainPage                                        |                                         http://localhost:8080/post/myBlog/1                                        |
+|                                                     마이 페이지                                                    |                                                   회원가입 페이지                                                  |
+| ![image](https://github.com/Kernel360/hackerthon1-ministory/assets/147565215/8df8866c-cd8d-44ec-befb-514652509ea5) | ![image](https://github.com/Kernel360/hackerthon1-ministory/assets/147565215/116396c8-424f-45cf-96cc-fdfaaa79e6e3) |
+|                                        http://localhost:8080/api/user/mypage                                       |                                        http://localhost:8080/api/user/signup                                       |
+|                                                                                                                    |                                                                                                                    |
+|                                                                                                                    |                                                                                                                    |
