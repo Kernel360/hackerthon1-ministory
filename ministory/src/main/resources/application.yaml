@@ -6,7 +6,7 @@ spring:
       database: mysql
       dialect: org.hibernate.dialect.MySQL8Dialect
     hibernate:
-      ddl-auto: validate
+      ddl-auto: create
   datasource:
     url: jdbc:mysql://localhost:3308/mini_story?useSSL=false&useUnicode=true&allowPublicKeyRetrieval=true
     driver-class-name: com.mysql.cj.jdbc.Driver
