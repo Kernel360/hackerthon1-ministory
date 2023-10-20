@@ -49,16 +49,15 @@ public class ScrapService {
 			.orElseThrow(() -> new NotFoundException("해당 게시글이 없습니다."));
 		post.setScrapCount(post.getScrapCount() - 1);
 		Scrap scrap = scrapRepository.findByUserAndPost(user, post)
-			.orElseThrow(() -> new NotFoundException("해당 좋아요가 없습니다."));
+			.orElseThrow(() -> new NotFoundException("해당 스크랩이 없습니다."));
 		scrapRepository.delete(scrap);
 	}
 
-	// 여기 쿼리 진짜 비효율적임. 더 빨리, 효율적으로 가져오려면 어떻게 바꿀 수 있을지 고민해보기
+	// 빨리, 효율적으로 가져오려면 어떻게 바꿀 수 있을지 고민해보기
 	@Transactional
 	public List<ScrapPostDto> getAllScrap(UserIdDto request) {
 		User user = userRepository.findById(1l)
 			.orElseThrow(() -> new NotFoundException("해당 유저가 없습니다."));
-		// TODO: 이거 user안에 있는 likeList 가져다가 쓰면 안돼나?
 		List<Scrap> scrapList = scrapRepository.findAllByUser(user);
 		List<ScrapPostDto> list = new ArrayList<>();
 		for (Scrap scrap : scrapList) {
@@ -82,7 +81,7 @@ public class ScrapService {
 			Post post = postRepository.findById(postId).orElseThrow(() -> new NotFoundException("해당 게시글이 없습니다."));
 			post.setLikeCount(post.getLikeCount() - 1);
 			Scrap scrap = scrapRepository.findByUserAndPost(user, post)
-				.orElseThrow(() -> new NotFoundException("해당 좋아요가 없습니다."));
+				.orElseThrow(() -> new NotFoundException("해당 스크랩이 없습니다."));
 			scrapRepository.delete(scrap);
 		}
 	}

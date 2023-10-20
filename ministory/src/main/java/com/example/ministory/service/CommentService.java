@@ -27,13 +27,6 @@ public class CommentService {
 	public UserRepository userRepository;
 	public PostRepository postRepository;
 
-	// public List<Comment> findAllComments(Long userId, Long postId) {
-	// 	User user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException("존재하지 않는 유저입니다."));
-	// 	Post post = postRepository.findById(postId).orElseThrow(() -> new NotFoundException("존재하지 않는 게시글입니다."));
-	//
-	// 	return commentRepository.findCommentsByUserAndPost(user, post);
-	// }
-
 	public List<CommentDto> findAllComments(Long postId) {
 		Post post = postRepository.findById(postId).orElseThrow(() -> new NotFoundException("존재하지 않는 게시글입니다."));
 
@@ -65,14 +58,6 @@ public class CommentService {
 		commentRepository.save(comment);
 	}
 
-	// public void saveCommentOnPost(CommentDto commentDto, Long userId, Long postId) {
-	// 	User user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException("존재하지 않는 유저입니다."));
-	// 	Post post = postRepository.findById(postId).orElseThrow(() -> new NotFoundException("존재하지 않는 게시글입니다."));
-	// 	Comment comment = commentDto.toEntity(user, post);
-	//
-	// 	commentRepository.save(comment);
-	// }
-
 	public void saveCommentOnComment(PostCommentDto postCommentDto) {
 		User user = userRepository.findById(postCommentDto.getUserId())
 			.orElseThrow(() -> new NotFoundException("존재하지 않는 유저입니다."));
@@ -85,14 +70,6 @@ public class CommentService {
 			.parentId(postCommentDto.getParentId())
 			.build());
 	}
-	//
-	// public void saveCommentOnComment(CommentDto commentDto, Long userId, Long postId, Long parentId) {
-	// 	User user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException("존재하지 않는 유저입니다."));
-	// 	Post post = postRepository.findById(postId).orElseThrow(() -> new NotFoundException("존재하지 않는 게시글입니다."));
-	// 	Comment comment = commentDto.toEntity(user, post, parentId);
-	//
-	// 	commentRepository.save(comment);
-	// }
 
 	public void updateComment(Long commentId, String content) {
 		Comment comment = commentRepository.findById(commentId)
