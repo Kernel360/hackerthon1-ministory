@@ -5,22 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.example.ministory.dto.LikePostDto;
-import com.example.ministory.dto.PostDto;
-import com.example.ministory.dto.UserDto;
-import com.example.ministory.dto.UserIdDto;
-import com.example.ministory.entity.User;
-import com.example.ministory.service.UserService;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.ministory.entity.Category;
@@ -28,9 +19,8 @@ import com.example.ministory.entity.Post;
 import com.example.ministory.service.PostService;
 import com.google.gson.Gson;
 
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-
-import javax.validation.Valid;
 
 @Controller
 @RequiredArgsConstructor
@@ -95,7 +85,7 @@ public class PostController {
 		ModelAndView mv = new ModelAndView("myBlog");
 		List<Post> list = new ArrayList<>(postService.findUserPost(userId));
 		List<Category> list2 = new ArrayList<>(postService.findUserCategory(userId));
-		String userName = new String(postService.findUserName(userId));
+		String userName = postService.findUserName(userId);
 		mv.addObject("posts", list);
 		mv.addObject("categories", list2);
 		mv.addObject("currentUser", userName);

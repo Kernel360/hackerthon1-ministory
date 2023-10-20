@@ -5,14 +5,18 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import com.example.ministory.dto.*;
-import com.example.ministory.entity.User;
-import com.example.ministory.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.ministory.dto.DeleteManyScrapDto;
+import com.example.ministory.dto.ScrapDto;
+import com.example.ministory.dto.ScrapPostDto;
+import com.example.ministory.dto.UserIdDto;
 import com.example.ministory.service.ScrapService;
 
 import io.swagger.annotations.ApiOperation;

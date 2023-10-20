@@ -53,11 +53,11 @@ public class LikeService {
 		likeRepository.delete(likes);
 	}
 
-	// 여기 쿼리 진짜 비효율적임. 더 빨리, 효율적으로 가져오려면 어떻게 바꿀 수 있을지 고민해보기
+	// TODO: 빨리, 효율적으로 가져오려면 어떻게 바꿀 수 있을지 고민해보기
 	public List<LikePostDto> getAllLikes(UserIdDto request) {
 		User user = userRepository.findById(1L)
 			.orElseThrow(() -> new NotFoundException("해당 유저가 없습니다."));
-		// TODO: 이거 user안에 있는 likeList 가져다가 쓰면 안돼나?
+		// TODO: 이거 user안에 있는 likeList 가져다가 써도 되나 해보기
 		List<Likes> likesList = likeRepository.findAllByUser(user);
 		List<LikePostDto> list = new ArrayList<>();
 		for (Likes like : likesList) {
