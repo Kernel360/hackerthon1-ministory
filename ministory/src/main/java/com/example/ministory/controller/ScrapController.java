@@ -29,14 +29,12 @@ public class ScrapController {
 
 	private final ScrapService scrapService;
 
-	//	@Operation(summary = "스크랩 누르기")
 	@PostMapping("/push")
 	public ResponseEntity<?> addScrap(@RequestBody @Valid ScrapDto request) {
 		scrapService.addScrap(request);
 		return ResponseEntity.ok().build();
 	}
 
-	//		@Operation(summary = "스크랩 취소")
 	@PostMapping("/cancel")
 	public ResponseEntity<?> deleteScrap(@RequestBody @Valid ScrapDto request) {
 		scrapService.deleteScrap(request);

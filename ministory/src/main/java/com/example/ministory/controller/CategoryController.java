@@ -37,16 +37,6 @@ public class CategoryController {
 		return "redirect:category";
 	}
 
-    /*
-    // TODO: 유저의 카테고리 이름을 수정하는 함수
-    @PatchMapping("")
-    public String patchCategory(CategoryDto categoryDto, String ) {
-        // TODO: 1번 유저가 생성한 카테고리로 우선 분류
-        categoryService.saveCategoryOnUser(categoryDto, 1L);
-        return "category/categoryList";
-    }
-    */
-
 	@PostMapping("/delete")
 	public String deleteCategory(Long categoryId) {
 		categoryService.deleteCategory(categoryId);
